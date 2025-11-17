@@ -1,0 +1,67 @@
+import { ClassDefinition } from '../types';
+
+export const CLASSES: ClassDefinition[] = [
+  {
+    id: 'warrior',
+    name: 'Warrior',
+    description: 'A durable fighter who excels at physical combat and defense.',
+    icon: '🛡️',
+    baseStatModifiers: {
+      maxHp: 20,
+      maxArmor: 5,
+      attack: -1,
+    },
+    statGrowth: {
+      maxHp: 12,
+      maxArmor: 3,
+      attack: 1,
+    },
+    startingAbilityIds: ['skull_crusher'],
+    unlocks: [
+      { level: 2, abilityId: 'berserk' },
+      { level: 5, abilityId: 'shield_explosion' }, // Assuming this ability will be added
+    ],
+  },
+  {
+    id: 'mage',
+    name: 'Mage',
+    description: 'A master of arcane arts who manipulates the board and destroys foes from afar.',
+    icon: '🔮',
+    baseStatModifiers: {
+      maxHp: -15,
+      maxArmor: -5,
+      attack: 3,
+    },
+    statGrowth: {
+      maxHp: 8,
+      maxArmor: 1,
+      attack: 2,
+    },
+    startingAbilityIds: ['minor_heal'],
+    unlocks: [
+      { level: 2, abilityId: 'transmute_skulls' },
+      { level: 5, abilityId: 'fireball' }, // Assuming this ability will be added
+    ],
+  },
+  {
+    id: 'rogue',
+    name: 'Rogue',
+    description: 'An opportunist who focuses on speed, poison, and accumulating wealth.',
+    icon: '🗡️',
+    baseStatModifiers: {
+      maxHp: -5,
+      maxArmor: 0,
+      attack: 1,
+    },
+    statGrowth: {
+      maxHp: 10,
+      maxArmor: 2,
+      attack: 1,
+    },
+    startingAbilityIds: ['gold_rush'],
+    unlocks: [
+      { level: 2, abilityId: 'poison_cloud' }, // Assuming this ability will be added
+      { level: 5, abilityId: 'xp_boost' }, // Assuming this ability will be added
+    ],
+  }
+];

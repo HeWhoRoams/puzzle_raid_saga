@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemDefinitionResource" load_steps=2 format=3 uid="uid://item_short_sword"]
+
+[ext_resource type="Script" path="res://scripts/data/item_definition_resource.gd" id="1_l0drc"]
+
+[resource]
+script = ExtResource("1_l0drc")
+content_id = &"short_sword"
+display_name = "item.short_sword.name"
+description = "item.short_sword.desc"
+icon_path = "res://art/icons/items/short_sword.png"
+slot = &"weapon"
+rarity = 100
+upgrade_path = [
+	{"cost":0,"modifiers":{"attack":1}},
+	{"cost":50,"modifiers":{"attack":2}},
+	{"cost":120,"modifiers":{"attack":3}}
+]

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ClassDefinitionResource" load_steps=2 format=3 uid="uid://class_rogue"]
+
+[ext_resource type="Script" path="res://scripts/data/class_definition_resource.gd" id="1_19cxi"]
+
+[resource]
+script = ExtResource("1_19cxi")
+content_id = &"rogue"
+display_name = "class.rogue.name"
+description = "class.rogue.desc"
+icon_path = "res://art/icons/classes/rogue.png"
+base_stat_modifiers = {"max_hp":-5,"max_armor":0,"attack":1}
+stat_growth = {"max_hp":10,"max_armor":2,"attack":1}
+starting_ability_ids = [&"gold_rush"]
+unlocks = []

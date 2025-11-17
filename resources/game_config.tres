@@ -1,0 +1,106 @@
+[gd_resource type="Resource" script_class="GameConfigResource" load_steps=45 format=3 uid="uid://game_config"]
+
+[ext_resource type="Script" path="res://scripts/data/game_config.gd" id="1_vb0de"]
+[ext_resource type="Script" path="res://scripts/data/tile_definition_resource.gd" id="2_j3f32"]
+[ext_resource type="Script" path="res://scripts/data/chain_bonus_resource.gd" id="3_ljjsm"]
+[ext_resource type="Script" path="res://scripts/data/level_progression_resource.gd" id="4_9t7ia"]
+[ext_resource type="Resource" path="res://resources/abilities/minor_heal.tres" id="6_minor"]
+[ext_resource type="Resource" path="res://resources/abilities/skull_crusher.tres" id="7_skull"]
+[ext_resource type="Resource" path="res://resources/abilities/berserk.tres" id="8_berserk"]
+[ext_resource type="Resource" path="res://resources/abilities/gold_rush.tres" id="9_gold"]
+[ext_resource type="Resource" path="res://resources/abilities/transmute_skulls.tres" id="10_transmute"]
+[ext_resource type="Resource" path="res://resources/abilities/shield_explosion.tres" id="11_shield"]
+[ext_resource type="Resource" path="res://resources/classes/warrior.tres" id="12_warrior"]
+[ext_resource type="Resource" path="res://resources/classes/mage.tres" id="13_mage"]
+[ext_resource type="Resource" path="res://resources/classes/rogue.tres" id="14_rogue"]
+[ext_resource type="Resource" path="res://resources/enemies/goblin_01.tres" id="15_goblin"]
+[ext_resource type="Resource" path="res://resources/enemies/orc_01.tres" id="16_orc"]
+[ext_resource type="Resource" path="res://resources/enemies/spider_01.tres" id="17_spider"]
+[ext_resource type="Resource" path="res://resources/enemies/golem_01.tres" id="18_golem"]
+[ext_resource type="Resource" path="res://resources/enemies/shaman_01.tres" id="19_shaman"]
+[ext_resource type="Resource" path="res://resources/enemies/horror_01.tres" id="20_horror"]
+[ext_resource type="Resource" path="res://resources/items/short_sword.tres" id="21_short"]
+[ext_resource type="Resource" path="res://resources/items/golden_dagger.tres" id="22_dagger"]
+[ext_resource type="Resource" path="res://resources/items/leather_armor.tres" id="23_leather"]
+[ext_resource type="Resource" path="res://resources/items/spiked_shield.tres" id="24_spiked"]
+[ext_resource type="Resource" path="res://resources/items/ring_of_vitality.tres" id="25_ring"]
+[ext_resource type="Resource" path="res://resources/items/amulet_of_wisdom.tres" id="26_amulet"]
+[ext_resource type="Resource" path="res://resources/difficulties/easy.tres" id="27_easy"]
+[ext_resource type="Resource" path="res://resources/difficulties/normal.tres" id="28_normal"]
+[ext_resource type="Resource" path="res://resources/difficulties/hard.tres" id="29_hard"]
+[ext_resource type="Resource" path="res://resources/difficulties/insane.tres" id="30_insane"]
+
+[sub_resource type="Resource" id="TileSword"]
+script = ExtResource("2_j3f32")
+tile_type = &"SWORD"
+weight = 25.0
+
+[sub_resource type="Resource" id="TileSkull"]
+script = ExtResource("2_j3f32")
+tile_type = &"SKULL"
+weight = 25.0
+
+[sub_resource type="Resource" id="TileShield"]
+script = ExtResource("2_j3f32")
+tile_type = &"SHIELD"
+weight = 20.0
+
+[sub_resource type="Resource" id="TilePotion"]
+script = ExtResource("2_j3f32")
+tile_type = &"POTION"
+weight = 15.0
+
+[sub_resource type="Resource" id="TileCoin"]
+script = ExtResource("2_j3f32")
+tile_type = &"COIN"
+weight = 15.0
+
+[sub_resource type="Resource" id="Chain3"]
+script = ExtResource("3_ljjsm")
+length = 3
+multiplier = 1.0
+
+[sub_resource type="Resource" id="Chain4"]
+script = ExtResource("3_ljjsm")
+length = 4
+multiplier = 1.2
+
+[sub_resource type="Resource" id="Chain5"]
+script = ExtResource("3_ljjsm")
+length = 5
+multiplier = 1.5
+
+[sub_resource type="Resource" id="Chain6"]
+script = ExtResource("3_ljjsm")
+length = 6
+multiplier = 2.0
+
+[sub_resource type="Resource" id="Chain7"]
+script = ExtResource("3_ljjsm")
+length = 7
+multiplier = 2.5
+
+[sub_resource type="Resource" id="Chain8"]
+script = ExtResource("3_ljjsm")
+length = 8
+multiplier = 3.0
+
+[sub_resource type="Resource" id="LevelProgression"]
+script = ExtResource("4_9t7ia")
+base_xp = 100
+xp_multiplier = 1.5
+stat_gains = {"max_hp":10,"max_armor":2,"attack":1}
+
+[resource]
+script = ExtResource("1_vb0de")
+board_size = 6
+min_path_length = 3
+tile_types = [SubResource("TileSword"), SubResource("TileSkull"), SubResource("TileShield"), SubResource("TilePotion"), SubResource("TileCoin")]
+chain_bonuses = [SubResource("Chain3"), SubResource("Chain4"), SubResource("Chain5"), SubResource("Chain6"), SubResource("Chain7"), SubResource("Chain8")]
+level_progression = SubResource("LevelProgression")
+abilities = [ExtResource("6_minor"), ExtResource("7_skull"), ExtResource("8_berserk"), ExtResource("9_gold"), ExtResource("10_transmute"), ExtResource("11_shield")]
+classes = [ExtResource("12_warrior"), ExtResource("13_mage"), ExtResource("14_rogue")]
+enemies = [ExtResource("15_goblin"), ExtResource("16_orc"), ExtResource("17_spider"), ExtResource("18_golem"), ExtResource("19_shaman"), ExtResource("20_horror")]
+items = [ExtResource("21_short"), ExtResource("22_dagger"), ExtResource("23_leather"), ExtResource("24_spiked"), ExtResource("25_ring"), ExtResource("26_amulet")]
+difficulties = [ExtResource("27_easy"), ExtResource("28_normal"), ExtResource("29_hard"), ExtResource("30_insane")]
+default_difficulty = &"Normal"

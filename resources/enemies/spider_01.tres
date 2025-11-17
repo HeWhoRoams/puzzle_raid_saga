@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyDefinitionResource" load_steps=2 format=3 uid="uid://enemy_spider_01"]
+
+[ext_resource type="Script" path="res://scripts/data/enemy_definition_resource.gd" id="1_j6x0m"]
+
+[resource]
+script = ExtResource("1_j6x0m")
+content_id = &"spider_01"
+display_name = "Poisonous Spider"
+base_hp = 15
+base_attack = 1
+base_armor = 0
+traits = [&"POISON"]
+rarity = 40.0
+min_depth = 10
+max_depth = 35
+xp_reward = 15
+gold_reward = 3

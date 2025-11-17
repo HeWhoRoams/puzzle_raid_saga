@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ClassDefinitionResource" load_steps=2 format=3 uid="uid://class_mage"]
+
+[ext_resource type="Script" path="res://scripts/data/class_definition_resource.gd" id="1_19cxi"]
+
+[resource]
+script = ExtResource("1_19cxi")
+content_id = &"mage"
+display_name = "class.mage.name"
+description = "class.mage.desc"
+icon_path = "res://art/icons/classes/mage.png"
+base_stat_modifiers = {"max_hp":-15,"max_armor":-5,"attack":3}
+stat_growth = {"max_hp":8,"max_armor":1,"attack":2}
+starting_ability_ids = [&"minor_heal"]
+unlocks = [{"level":2,"ability_id":&"transmute_skulls"}]

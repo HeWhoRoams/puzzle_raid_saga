@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyDefinitionResource" load_steps=2 format=3 uid="uid://enemy_golem_01"]
+
+[ext_resource type="Script" path="res://scripts/data/enemy_definition_resource.gd" id="1_j6x0m"]
+
+[resource]
+script = ExtResource("1_j6x0m")
+content_id = &"golem_01"
+display_name = "Stone Golem"
+base_hp = 40
+base_attack = 3
+base_armor = 0
+traits = [&"ARMOR_PIERCING"]
+rarity = 25.0
+min_depth = 20
+max_depth = 50
+xp_reward = 25
+gold_reward = 10

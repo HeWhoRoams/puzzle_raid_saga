@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemDefinitionResource" load_steps=2 format=3 uid="uid://item_leather_armor"]
+
+[ext_resource type="Script" path="res://scripts/data/item_definition_resource.gd" id="1_l0drc"]
+
+[resource]
+script = ExtResource("1_l0drc")
+content_id = &"leather_armor"
+display_name = "item.leather_armor.name"
+description = "item.leather_armor.desc"
+icon_path = "res://art/icons/items/leather_armor.png"
+slot = &"armor"
+rarity = 100
+upgrade_path = [
+	{"cost":0,"modifiers":{"max_hp":10,"max_armor":5}},
+	{"cost":60,"modifiers":{"max_hp":20,"max_armor":10}},
+	{"cost":150,"modifiers":{"max_hp":30,"max_armor":15}}
+]

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AbilityDefinitionResource" load_steps=2 format=3 uid="uid://ability_skull_crusher"]
+
+[ext_resource type="Script" path="res://scripts/data/ability_definition_resource.gd" id="1_5o0dm"]
+
+[resource]
+script = ExtResource("1_5o0dm")
+content_id = &"skull_crusher"
+display_name = "ability.skull_crusher.name"
+description = "ability.skull_crusher.desc"
+icon_path = "res://art/icons/abilities/skull_crusher.png"
+base_cooldown = 10
+cooldown_reduction_per_level = 1
+max_level = 5
+effect = {"type":"DAMAGE_ALL_SKULLS","amount":10}

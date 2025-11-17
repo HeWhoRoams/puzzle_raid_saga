@@ -1,0 +1,56 @@
+// FIX: Import TileType to use its enum values instead of string literals.
+import { AbilityDefinition, TileType } from '../types';
+
+export const ABILITIES: AbilityDefinition[] = [
+  {
+    id: 'minor_heal',
+    name: 'Minor Heal',
+    description: 'Instantly restores 25 HP.',
+    icon: '❤️',
+    baseCooldown: 8,
+    cooldownReductionPerLevel: 1,
+    maxLevel: 3,
+    effect: { type: 'HEAL', amount: 25 },
+  },
+  {
+    id: 'skull_crusher',
+    name: 'Skull Crusher',
+    description: 'Deals 10 damage to all enemies on the board.',
+    icon: '💥',
+    baseCooldown: 10,
+    cooldownReductionPerLevel: 1,
+    maxLevel: 5,
+    effect: { type: 'DAMAGE_ALL_SKULLS', amount: 10 },
+  },
+  {
+    id: 'berserk',
+    name: 'Berserk',
+    description: 'Doubles your Attack damage for your next Sword chain.',
+    icon: '⚔️',
+    baseCooldown: 12,
+    cooldownReductionPerLevel: 1,
+    maxLevel: 1,
+    effect: { type: 'APPLY_BUFF', buffId: 'double_attack', duration: 1 },
+  },
+  {
+    id: 'gold_rush',
+    name: 'Gold Rush',
+    description: 'Doubles the Gold gained from your next Coin chain.',
+    icon: '💰',
+    baseCooldown: 15,
+    cooldownReductionPerLevel: 2,
+    maxLevel: 3,
+    effect: { type: 'APPLY_BUFF', buffId: 'double_gold', duration: 1 },
+  },
+  {
+    id: 'transmute_skulls',
+    name: 'Transmute Skulls',
+    description: 'Converts all Skull tiles into Coin tiles.',
+    icon: '✨',
+    baseCooldown: 20,
+    cooldownReductionPerLevel: 2,
+    maxLevel: 1,
+    // FIX: Use TileType enum members instead of string literals to match the type definition.
+    effect: { type: 'CONVERT_TILES', from: TileType.SKULL, to: TileType.COIN },
+  },
+];

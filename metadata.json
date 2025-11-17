@@ -1,0 +1,5 @@
+{
+  "name": "Puzzle Raid Saga",
+  "description": "A modern web-based implementation of a classic puzzle RPG. Draw paths of matching tiles to attack enemies, defend, heal, and collect loot. Inspired by the mechanics of Dungeon Raid, this version is built with React and TypeScript, featuring a configurable data-driven design.",
+  "requestFramePermissions": []
+}

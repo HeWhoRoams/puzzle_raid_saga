@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AbilityDefinitionResource" load_steps=2 format=3 uid="uid://ability_berserk"]
+
+[ext_resource type="Script" path="res://scripts/data/ability_definition_resource.gd" id="1_5o0dm"]
+
+[resource]
+script = ExtResource("1_5o0dm")
+content_id = &"berserk"
+display_name = "ability.berserk.name"
+description = "ability.berserk.desc"
+icon_path = "res://art/icons/abilities/berserk.png"
+base_cooldown = 12
+cooldown_reduction_per_level = 1
+max_level = 1
+effect = {"type":"APPLY_BUFF","buffId":"double_attack","duration":1}

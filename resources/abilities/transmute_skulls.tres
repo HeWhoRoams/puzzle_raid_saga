@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AbilityDefinitionResource" load_steps=2 format=3 uid="uid://ability_transmute_skulls"]
+
+[ext_resource type="Script" path="res://scripts/data/ability_definition_resource.gd" id="1_5o0dm"]
+
+[resource]
+script = ExtResource("1_5o0dm")
+content_id = &"transmute_skulls"
+display_name = "ability.transmute_skulls.name"
+description = "ability.transmute_skulls.desc"
+icon_path = "res://art/icons/abilities/transmute_skulls.png"
+base_cooldown = 20
+cooldown_reduction_per_level = 2
+max_level = 1
+effect = {"type":"CONVERT_TILES","from":"SKULL","to":"COIN"}

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyDefinitionResource" load_steps=2 format=3 uid="uid://enemy_shaman_01"]
+
+[ext_resource type="Script" path="res://scripts/data/enemy_definition_resource.gd" id="1_j6x0m"]
+
+[resource]
+script = ExtResource("1_j6x0m")
+content_id = &"shaman_01"
+display_name = "Goblin Shaman"
+base_hp = 20
+base_attack = 2
+base_armor = 0
+traits = [&"HEAL_ALLIES"]
+rarity = 20.0
+min_depth = 30
+max_depth = 60
+xp_reward = 20
+gold_reward = 8

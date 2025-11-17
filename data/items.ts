@@ -1,0 +1,84 @@
+import { ItemDefinition } from '../types';
+
+export const ITEMS: ItemDefinition[] = [
+  // --- WEAPONS ---
+  {
+    id: 'short_sword',
+    name: 'Short Sword',
+    description: 'A basic but reliable blade.',
+    icon: '🗡️',
+    slot: 'weapon',
+    rarity: 100,
+    upgradePath: [
+      { cost: 0, modifiers: { attack: 1 } }, // Level 1 (base)
+      { cost: 50, modifiers: { attack: 2 } }, // Level 2
+      { cost: 120, modifiers: { attack: 3 } }, // Level 3
+    ],
+  },
+  {
+    id: 'golden_dagger',
+    name: 'Golden Dagger',
+    description: 'A swift blade that glitters with avarice.',
+    icon: '🔪',
+    slot: 'weapon',
+    rarity: 30,
+    upgradePath: [
+      { cost: 0, modifiers: { attack: 1, coinMultiplier: 1.1 } },
+      { cost: 80, modifiers: { attack: 1, coinMultiplier: 1.2 } },
+      { cost: 200, modifiers: { attack: 2, coinMultiplier: 1.3 } },
+    ],
+  },
+
+  // --- ARMOR ---
+  {
+    id: 'leather_armor',
+    name: 'Leather Armor',
+    description: 'Simple armor offering modest protection.',
+    icon: '🧥',
+    slot: 'armor',
+    rarity: 100,
+    upgradePath: [
+      { cost: 0, modifiers: { maxHp: 10, maxArmor: 5 } },
+      { cost: 60, modifiers: { maxHp: 20, maxArmor: 10 } },
+      { cost: 150, modifiers: { maxHp: 30, maxArmor: 15 } },
+    ],
+  },
+  {
+    id: 'spiked_shield',
+    name: 'Spiked Shield',
+    description: 'Protective gear that also enhances your combat prowess.',
+    icon: '🛡️',
+    slot: 'armor',
+    rarity: 40,
+    upgradePath: [
+      { cost: 0, modifiers: { maxHp: 5, maxArmor: 8, attack: 1 } },
+      { cost: 100, modifiers: { maxHp: 10, maxArmor: 16, attack: 2 } },
+    ],
+  },
+
+  // --- ACCESSORIES ---
+  {
+    id: 'ring_of_vitality',
+    name: 'Ring of Vitality',
+    description: 'A magical ring that increases your life force.',
+    icon: '💍',
+    slot: 'accessory1',
+    rarity: 50,
+    upgradePath: [
+      { cost: 0, modifiers: { maxHp: 25 } },
+      { cost: 100, modifiers: { maxHp: 50 } },
+    ],
+  },
+  {
+    id: 'amulet_of_wisdom',
+    name: 'Amulet of Wisdom',
+    description: 'A charm that hastens your learning.',
+    icon: '💎',
+    slot: 'accessory2',
+    rarity: 30,
+    upgradePath: [
+      { cost: 0, modifiers: { xpGainMultiplier: 1.15 } },
+      { cost: 150, modifiers: { xpGainMultiplier: 1.30 } },
+    ],
+  },
+];

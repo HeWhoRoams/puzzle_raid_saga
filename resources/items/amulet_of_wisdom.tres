@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemDefinitionResource" load_steps=2 format=3 uid="uid://item_amulet_of_wisdom"]
+
+[ext_resource type="Script" path="res://scripts/data/item_definition_resource.gd" id="1_l0drc"]
+
+[resource]
+script = ExtResource("1_l0drc")
+content_id = &"amulet_of_wisdom"
+display_name = "item.amulet_of_wisdom.name"
+description = "item.amulet_of_wisdom.desc"
+icon_path = "res://art/icons/items/amulet_of_wisdom.png"
+slot = &"accessory2"
+rarity = 30
+upgrade_path = [
+	{"cost":0,"modifiers":{"xp_multiplier":1.15}},
+	{"cost":150,"modifiers":{"xp_multiplier":1.3}}
+]

@@ -1,0 +1,58 @@
+[gd_scene load_steps=2 format=3 uid="uid://screen_attract"]
+
+[ext_resource type="Script" path="res://scripts/ui/screens/attract_screen.gd" id="1_4r41t"]
+
+[node name="AttractScreen" type="Control"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4r41t")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(360, 260)
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="CenterContainer/VBox"]
+text = "Puzzle Raid"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 32
+
+[node name="Subtitle" type="Label" parent="CenterContainer/VBox"]
+text = "A Godot Dungeon-Raid prototype"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 16
+
+[node name="NewRunButton" type="Button" parent="CenterContainer/VBox"]
+unique_name_in_owner = true
+text = "Start New Run"
+
+[node name="ContinueButton" type="Button" parent="CenterContainer/VBox"]
+unique_name_in_owner = true
+text = "Continue Run"
+
+[node name="HistoryButton" type="Button" parent="CenterContainer/VBox"]
+unique_name_in_owner = true
+text = "Run History"
+
+[node name="ClearSaveButton" type="Button" parent="CenterContainer/VBox"]
+unique_name_in_owner = true
+text = "Clear Active Run"
+
+[node name="ClearHistoryButton" type="Button" parent="CenterContainer/VBox"]
+unique_name_in_owner = true
+text = "Clear Run History"
+
+[node name="StatusLabel" type="Label" parent="CenterContainer/VBox"]
+unique_name_in_owner = true
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 14

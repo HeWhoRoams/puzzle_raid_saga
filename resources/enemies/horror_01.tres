@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyDefinitionResource" load_steps=2 format=3 uid="uid://enemy_horror_01"]
+
+[ext_resource type="Script" path="res://scripts/data/enemy_definition_resource.gd" id="1_j6x0m"]
+
+[resource]
+script = ExtResource("1_j6x0m")
+content_id = &"horror_01"
+display_name = "Abyssal Horror"
+base_hp = 50
+base_attack = 5
+base_armor = 0
+traits = [&"SPAWN_SKULLS"]
+rarity = 10.0
+min_depth = 50
+max_depth = 999
+xp_reward = 50
+gold_reward = 25

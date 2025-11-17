@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemDefinitionResource" load_steps=2 format=3 uid="uid://item_ring_of_vitality"]
+
+[ext_resource type="Script" path="res://scripts/data/item_definition_resource.gd" id="1_l0drc"]
+
+[resource]
+script = ExtResource("1_l0drc")
+content_id = &"ring_of_vitality"
+display_name = "item.ring_of_vitality.name"
+description = "item.ring_of_vitality.desc"
+icon_path = "res://art/icons/items/ring_of_vitality.png"
+slot = &"accessory1"
+rarity = 50
+upgrade_path = [
+	{"cost":0,"modifiers":{"max_hp":25}},
+	{"cost":100,"modifiers":{"max_hp":50}}
+]

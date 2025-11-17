@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyDefinitionResource" load_steps=2 format=3 uid="uid://enemy_orc_01"]
+
+[ext_resource type="Script" path="res://scripts/data/enemy_definition_resource.gd" id="1_j6x0m"]
+
+[resource]
+script = ExtResource("1_j6x0m")
+content_id = &"orc_01"
+display_name = "Orc Grunt"
+base_hp = 25
+base_attack = 4
+base_armor = 2
+traits = []
+rarity = 50.0
+min_depth = 5
+max_depth = 25
+xp_reward = 10
+gold_reward = 5

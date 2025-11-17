@@ -1,0 +1,107 @@
+[gd_scene load_steps=6 format=3 uid="uid://screen_gameplay"]
+
+[ext_resource type="Script" path="res://scripts/ui/gameplay/gameplay_shell.gd" id="1_u1wxb"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/BoardView.tscn" id="2_ne3q8"]
+[ext_resource type="PackedScene" path="res://scenes/ui/AbilityBar.tscn" id="3_ke8c6"]
+[ext_resource type="PackedScene" path="res://scenes/ui/ItemOfferOverlay.tscn" id="4_we7im"]
+[ext_resource type="PackedScene" path="res://scenes/ui/FloatingTextLayer.tscn" id="5_hq6rr"]
+
+[node name="GameplayShell" type="Control"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u1wxb")
+
+[node name="Margin" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="RootVBox" type="VBoxContainer" parent="Margin"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="Header" type="HBoxContainer" parent="Margin/RootVBox"]
+theme_override_constants/separation = 12
+
+[node name="RunInfo" type="Label" parent="Margin/RootVBox/Header"]
+unique_name_in_owner = true
+size_flags_horizontal = 3
+text = "Stats"
+
+[node name="BuffContainer" type="HBoxContainer" parent="Margin/RootVBox/Header"]
+unique_name_in_owner = true
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="GameOverLabel" type="Label" parent="Margin/RootVBox/Header"]
+unique_name_in_owner = true
+text = ""
+size_flags_horizontal = 1
+horizontal_alignment = 2
+theme_override_font_sizes/font_size = 18
+visible = false
+
+[node name="XPLabel" type="Label" parent="Margin/RootVBox"]
+unique_name_in_owner = true
+text = "XP Progress"
+theme_override_font_sizes/font_size = 16
+
+[node name="Content" type="HBoxContainer" parent="Margin/RootVBox"]
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="BoardPanel" type="PanelContainer" parent="Margin/RootVBox/Content"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BoardView" parent="Margin/RootVBox/Content/BoardPanel" instance=ExtResource("2_ne3q8")]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SidePanel" type="VBoxContainer" parent="Margin/RootVBox/Content"]
+size_flags_horizontal = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="AbilityBar" parent="Margin/RootVBox/Content/SidePanel" instance=ExtResource("3_ke8c6")]
+unique_name_in_owner = true
+anchors_preset = 10
+size_flags_horizontal = 3
+
+[node name="LogLabel" type="RichTextLabel" parent="Margin/RootVBox/Content/SidePanel"]
+unique_name_in_owner = true
+scroll_active = true
+size_flags_vertical = 3
+
+[node name="Buttons" type="HBoxContainer" parent="Margin/RootVBox/Content/SidePanel"]
+size_flags_horizontal = 3
+
+[node name="SaveQuitButton" type="Button" parent="Margin/RootVBox/Content/SidePanel/Buttons"]
+unique_name_in_owner = true
+text = "Save & Quit"
+size_flags_horizontal = 1
+
+[node name="AbandonButton" type="Button" parent="Margin/RootVBox/Content/SidePanel/Buttons"]
+unique_name_in_owner = true
+text = "Surrender"
+size_flags_horizontal = 1
+
+[node name="ItemOfferOverlay" parent="." instance=ExtResource("4_we7im")]
+unique_name_in_owner = true
+
+[node name="FloatingTexts" parent="." instance=ExtResource("5_hq6rr")]
+unique_name_in_owner = true

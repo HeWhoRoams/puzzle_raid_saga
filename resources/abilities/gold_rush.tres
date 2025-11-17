@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AbilityDefinitionResource" load_steps=2 format=3 uid="uid://ability_gold_rush"]
+
+[ext_resource type="Script" path="res://scripts/data/ability_definition_resource.gd" id="1_5o0dm"]
+
+[resource]
+script = ExtResource("1_5o0dm")
+content_id = &"gold_rush"
+display_name = "ability.gold_rush.name"
+description = "ability.gold_rush.desc"
+icon_path = "res://art/icons/abilities/gold_rush.png"
+base_cooldown = 15
+cooldown_reduction_per_level = 2
+max_level = 3
+effect = {"type":"APPLY_BUFF","buffId":"double_gold","duration":1}

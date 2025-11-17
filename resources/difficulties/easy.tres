@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DifficultyDefinitionResource" load_steps=2 format=3 uid="uid://difficulty_easy"]
+
+[ext_resource type="Script" path="res://scripts/data/difficulty_definition_resource.gd" id="1_cm8y5"]
+
+[resource]
+script = ExtResource("1_cm8y5")
+content_id = &"Easy"
+display_name = "difficulty.easy.name"
+stat_multiplier = 0.75
+special_enemy_spawn_modifier = 0.5

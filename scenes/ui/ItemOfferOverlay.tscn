@@ -1,0 +1,50 @@
+[gd_scene load_steps=2 format=3 uid="uid://item_offer_overlay"]
+
+[ext_resource type="Script" path="res://scripts/ui/gameplay/item_offer_overlay.gd" id="1_0e6i7"]
+
+[node name="ItemOfferOverlay" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.65)
+mouse_filter = 2
+visible = false
+script = ExtResource("1_0e6i7")
+
+[node name="Center" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+custom_minimum_size = Vector2(480, 360)
+
+[node name="VBox" type="VBoxContainer" parent="Center/Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Center/Panel/VBox"]
+text = "Level Up! Choose a Reward"
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="Offers" type="VBoxContainer" parent="Center/Panel/VBox"]
+unique_name_in_owner = true
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="Buttons" type="HBoxContainer" parent="Center/Panel/VBox"]
+alignment = 1
+theme_override_constants/separation = 10
+
+[node name="SkipButton" type="Button" parent="Center/Panel/VBox/Buttons"]
+unique_name_in_owner = true
+text = "Skip"

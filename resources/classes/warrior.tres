@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ClassDefinitionResource" load_steps=2 format=3 uid="uid://class_warrior"]
+
+[ext_resource type="Script" path="res://scripts/data/class_definition_resource.gd" id="1_19cxi"]
+
+[resource]
+script = ExtResource("1_19cxi")
+content_id = &"warrior"
+display_name = "class.warrior.name"
+description = "class.warrior.desc"
+icon_path = "res://art/icons/classes/warrior.png"
+base_stat_modifiers = {"max_hp":20,"max_armor":5,"attack":-1}
+stat_growth = {"max_hp":12,"max_armor":3,"attack":1}
+starting_ability_ids = [&"skull_crusher"]
+unlocks = [{"level":2,"ability_id":&"berserk"},{"level":5,"ability_id":&"shield_explosion"}]

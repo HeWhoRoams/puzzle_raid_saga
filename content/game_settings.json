@@ -1,0 +1,28 @@
+{
+  "boardSize": 6,
+  "minPathLength": 3,
+  "tileTypes": [
+    { "type": "SWORD", "weight": 25 },
+    { "type": "SKULL", "weight": 25 },
+    { "type": "SHIELD", "weight": 20 },
+    { "type": "POTION", "weight": 15 },
+    { "type": "COIN", "weight": 15 }
+  ],
+  "chainBonuses": [
+    { "length": 3, "multiplier": 1.0 },
+    { "length": 4, "multiplier": 1.2 },
+    { "length": 5, "multiplier": 1.5 },
+    { "length": 6, "multiplier": 2.0 },
+    { "length": 7, "multiplier": 2.5 },
+    { "length": 8, "multiplier": 3.0 }
+  ],
+  "levelProgression": {
+    "baseXp": 100,
+    "xpMultiplier": 1.5,
+    "statGains": {
+      "maxHp": 10,
+      "maxArmor": 2,
+      "attack": 1
+    }
+  }
+}

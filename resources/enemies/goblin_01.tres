@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyDefinitionResource" load_steps=2 format=3 uid="uid://enemy_goblin_01"]
+
+[ext_resource type="Script" path="res://scripts/data/enemy_definition_resource.gd" id="1_j6x0m"]
+
+[resource]
+script = ExtResource("1_j6x0m")
+content_id = &"goblin_01"
+display_name = "Cave Goblin"
+base_hp = 10
+base_attack = 2
+base_armor = 0
+traits = []
+rarity = 100.0
+min_depth = 0
+max_depth = 10
+xp_reward = 5
+gold_reward = 2
