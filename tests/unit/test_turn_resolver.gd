@@ -1,5 +1,6 @@
 extends SceneTree
 
+
 func _init() -> void:
 	GameState.ensure_initialized()
 	_test_sword_damage_distribution()
@@ -8,6 +9,7 @@ func _init() -> void:
 	_test_activate_ability()
 	print("TurnResolver unit tests passed.")
 	quit()
+
 
 func _test_sword_damage_distribution() -> void:
 	var stats := {
@@ -29,8 +31,11 @@ func _test_sword_damage_distribution() -> void:
 		[{"type": "SWORD"}, {"type": "SKULL", "hp": 15, "enemy_id": "goblin_01"}],
 	]
 	var path := [Vector2i(0, 0), Vector2i(1, 0)]
-	var result := TurnResolver.resolve_player_action(board, stats, stats, path, GameState.get_config())
+	var result := TurnResolver.resolve_player_action(
+		board, stats, stats, path, GameState.get_config()
+	)
 	assert(result.defeated_enemies.size() == 1)
+
 
 func _test_buff_consumption() -> void:
 	var stats := {
@@ -52,8 +57,11 @@ func _test_buff_consumption() -> void:
 		[{"type": "SWORD"}, {"type": "SWORD"}],
 	]
 	var path := [Vector2i(0, 0), Vector2i(1, 0)]
-	var result := TurnResolver.resolve_player_action(board, stats, stats, path, GameState.get_config())
+	var result := TurnResolver.resolve_player_action(
+		board, stats, stats, path, GameState.get_config()
+	)
 	assert(result.player_stats.buffs.is_empty())
+
 
 func _test_poison_tick() -> void:
 	var stats := {
@@ -74,6 +82,7 @@ func _test_poison_tick() -> void:
 	var result := TurnResolver.apply_poison_damage(stats)
 	assert(result.player_stats.hp == 48)
 	assert(result.player_stats.poison_stacks == 1)
+
 
 func _test_activate_ability() -> void:
 	var board := [

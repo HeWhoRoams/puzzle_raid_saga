@@ -16,6 +16,7 @@ signal return_to_menu_requested
 var _is_game_over := false
 var _show_item_offers := false
 
+
 func _ready() -> void:
 	board_view.path_committed.connect(_on_path_committed)
 	%AbandonButton.pressed.connect(_on_abandon_pressed)
@@ -25,7 +26,8 @@ func _ready() -> void:
 	item_offer_overlay.offers_skipped.connect(_on_offers_skipped)
 	refresh_from_state()
 
-func _unhandled_input(event: InputEvent) -> void:
+
+func _unhandled_input(_event: InputEvent) -> void:
 	if not visible:
 		return
 	if Input.is_action_just_pressed("ui_save_run"):
@@ -33,13 +35,16 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif Input.is_action_just_pressed("ui_abandon_run"):
 		_on_abandon_pressed()
 
+
 func set_is_game_over(value: bool) -> void:
 	_is_game_over = value
 	_update_game_over_label()
 
+
 func set_show_item_offers(value: bool) -> void:
 	_show_item_offers = value
 	_refresh_item_offers()
+
 
 func refresh_from_state() -> void:
 	if not is_instance_valid(board_view):
@@ -54,35 +59,46 @@ func refresh_from_state() -> void:
 	_update_game_over_label()
 	_refresh_item_offers()
 
-func _update_stats() -> void:
-	var stats := GameState.get_player_stats_snapshot()
-	var class_def := GameState.get_current_class_definition()
-	var class_name := tr(class_def.display_name) if class_def else "Adventurer"
-	var depth := GameState.get_depth()
 
-	run_info.text = "Class: %s | HP %d/%d | Armor %d/%d | Atk %d | Gold %d | XP %d | Depth %d" % [
-		class_name,
-		stats.get("hp", 0),
-		stats.get("max_hp", stats.get("maxHp", 0)),
-		stats.get("armor", 0),
-		stats.get("max_armor", stats.get("maxArmor", 0)),
-		stats.get("attack", 0),
-		stats.get("gold", 0),
-		stats.get("xp", 0),
-		depth,
-	]
-	var xp_progress := GameState.get_xp_progress()
-	var remaining := xp_progress.get("remaining", 0)
-	xp_label.text = "XP: %d / %d (Need %d more for next level)" % [
-		xp_progress.get("current", 0),
-		xp_progress.get("required", 0),
-		remaining,
-	]
+func _update_stats() -> void:
+	var stats = GameState.get_player_stats_snapshot()
+	var selected_class = GameState.get_current_class_definition()
+	var class_label = "Adventurer"
+	if selected_class:
+		class_label = tr(selected_class.display_name)
+	var depth = GameState.get_depth()
+
+	run_info.text = (
+		"Class: %s | HP %d/%d | Armor %d/%d | Atk %d | Gold %d | XP %d | Depth %d"
+		% [
+			class_label,
+			stats.get("hp", 0),
+			stats.get("max_hp", stats.get("maxHp", 0)),
+			stats.get("armor", 0),
+			stats.get("max_armor", stats.get("maxArmor", 0)),
+			stats.get("attack", 0),
+			stats.get("gold", 0),
+			stats.get("xp", 0),
+			depth,
+		]
+	)
+	var xp_progress = GameState.get_xp_progress()
+	var remaining = xp_progress.get("remaining", 0)
+	xp_label.text = (
+		"XP: %d / %d (Need %d more for next level)"
+		% [
+			xp_progress.get("current", 0),
+			xp_progress.get("required", 0),
+			remaining,
+		]
+	)
+
 
 func _update_log() -> void:
 	var logs := GameState.get_log_snapshot()
 	log_label.text = "\n".join(logs)
 	log_label.scroll_to_line(log_label.get_line_count())
+
 
 func _update_game_over_label() -> void:
 	game_over_label.visible = _is_game_over
@@ -91,6 +107,7 @@ func _update_game_over_label() -> void:
 	%AbandonButton.disabled = _is_game_over
 	ability_bar.visible = not _is_game_over
 
+
 func _update_buffs(buffs: Array) -> void:
 	if not is_instance_valid(buff_container):
 		return
@@ -98,10 +115,14 @@ func _update_buffs(buffs: Array) -> void:
 		child.queue_free()
 	for buff in buffs:
 		var badge := Label.new()
-		badge.text = "%s (%d)" % [buff.get("id", "buff"), buff.get("duration_turns", buff.get("durationTurns", 0))]
+		badge.text = (
+			"%s (%d)"
+			% [buff.get("id", "buff"), buff.get("duration_turns", buff.get("durationTurns", 0))]
+		)
 		badge.add_theme_color_override("font_color", Color.YELLOW)
 		badge.add_theme_font_size_override("font_size", 14)
 		buff_container.add_child(badge)
+
 
 func _on_path_committed(path: Array[Vector2i]) -> void:
 	if _is_game_over:
@@ -115,11 +136,14 @@ func _on_path_committed(path: Array[Vector2i]) -> void:
 	_show_turn_feedback(result.get("logs", []))
 	AudioBus.play_named_sfx("chain")
 
+
 func _on_abandon_pressed() -> void:
 	run_abandoned.emit()
 
+
 func _on_save_quit_pressed() -> void:
 	return_to_menu_requested.emit()
+
 
 func _on_ability_pressed(ability_id: StringName) -> void:
 	var result := GameState.activate_ability(ability_id)
@@ -129,6 +153,7 @@ func _on_ability_pressed(ability_id: StringName) -> void:
 	refresh_from_state()
 	floating_text_layer.show_message("Ability!", Color.YELLOW)
 	AudioBus.play_named_sfx("ability")
+
 
 func _refresh_item_offers() -> void:
 	if not is_instance_valid(item_offer_overlay):
@@ -141,6 +166,7 @@ func _refresh_item_offers() -> void:
 		if not _is_game_over:
 			ability_bar.visible = true
 
+
 func _on_offer_selected(index: int) -> void:
 	var result := GameState.purchase_item_offer(index)
 	if not result.get("success", false):
@@ -149,17 +175,20 @@ func _on_offer_selected(index: int) -> void:
 	refresh_from_state()
 	AudioBus.play_named_sfx("offer_pick")
 
+
 func _on_offers_skipped() -> void:
 	GameState.skip_item_offers()
 	refresh_from_state()
 	AudioBus.play_named_sfx("offer_skip")
 
+
 func _show_turn_feedback(logs: Array) -> void:
 	if logs.is_empty():
 		return
-	var last_log := logs.back()
-	var sanitized := last_log.strip_edges()
+	var last_log: String = str(logs.back())
+	var sanitized: String = last_log.strip_edges()
 	if sanitized.length() == 0:
 		return
 	floating_text_layer.show_message(sanitized)
+	var stats: Dictionary = GameState.get_player_stats_snapshot()
 	_update_buffs(stats.get("buffs", []))

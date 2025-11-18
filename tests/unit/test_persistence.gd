@@ -1,5 +1,6 @@
 extends SceneTree
 
+
 func _init() -> void:
 	GameState.ensure_initialized()
 	SaveService.clear_active_run()

@@ -1,5 +1,4 @@
 extends Node
-class_name GameState
 
 ## Primary runtime state machine and orchestration point.
 
@@ -28,6 +27,7 @@ var _game_log: Array[String] = []
 var _current_class_id: StringName = StringName()
 var _pending_item_offers: Array = []
 
+
 func ensure_initialized() -> void:
 	if _initialized:
 		return
@@ -49,42 +49,49 @@ func ensure_initialized() -> void:
 	_depth = 1
 	_initialized = true
 
+
 func change_state(new_state: RunState) -> void:
 	if current_state == new_state:
 		return
 	current_state = new_state
 	run_state_changed.emit(new_state)
 
+
 func get_config() -> GameConfigResource:
 	return _config
+
 
 func get_run_state() -> RunState:
 	return current_state
 
+
 func has_saved_run() -> bool:
 	return not SaveService.load_active_run().is_empty()
+
 
 func get_current_class_definition() -> ClassDefinitionResource:
 	if _current_class_id == StringName():
 		return null
-	return ContentDB.get_class(_current_class_id)
+	return ContentDB.get_class_definition(_current_class_id)
+
 
 func get_xp_progress() -> Dictionary:
-	var stats := _player_stats
+	var stats: Dictionary = _player_stats
 	if stats.is_empty():
 		return {"current": 0, "required": _xp_required_for_level(1), "remaining": 0}
-	var current_xp := stats.get("xp", 0)
-	var required := _xp_required_for_level(stats.get("level", 1))
+	var current_xp: int = stats.get("xp", 0)
+	var required: int = _xp_required_for_level(stats.get("level", 1))
 	return {
 		"current": current_xp,
 		"required": required,
 		"remaining": max(0, required - current_xp),
 	}
 
+
 func start_new_run(class_id: StringName) -> void:
 	ensure_initialized()
 
-	var class_def := ContentDB.get_class(class_id)
+	var class_def: ClassDefinitionResource = ContentDB.get_class_definition(class_id)
 	_player_stats = PlayerStateFactory.create_for_class(class_def)
 	_current_class_id = class_id
 	_depth = 1
@@ -92,14 +99,17 @@ func start_new_run(class_id: StringName) -> void:
 	_pending_item_offers.clear()
 
 	BoardService.regenerate_board(_depth)
-	_append_logs(["A %s enters the dungeon." % (tr(class_def.display_name) if class_def else "wanderer")])
+	_append_logs(
+		["A %s enters the dungeon." % (tr(class_def.display_name) if class_def else "wanderer")]
+	)
 
 	_persist_active_run()
 	change_state(RunState.GAMEPLAY)
 
+
 func continue_saved_run() -> bool:
 	ensure_initialized()
-	var data := SaveService.load_active_run()
+	var data: Dictionary = SaveService.load_active_run()
 	if data.is_empty():
 		return false
 
@@ -108,19 +118,20 @@ func continue_saved_run() -> bool:
 	_game_log = data.get("log", [])
 	_current_class_id = _player_stats.get("class_id", StringName())
 
-	var board := data.get("board", [])
+	var board: Array = data.get("board", []) as Array
 	if board.is_empty():
 		return false
 
 	_pending_item_offers = data.get("pending_offers", [])
 
 	BoardService.set_board(board, _depth)
-	var saved_state := data.get("state", RunState.GAMEPLAY)
+	var saved_state: RunState = data.get("state", RunState.GAMEPLAY)
 	if saved_state == RunState.ITEM_OFFER and not _pending_item_offers.is_empty():
 		change_state(RunState.ITEM_OFFER)
 	else:
 		change_state(RunState.GAMEPLAY)
 	return true
+
 
 func abandon_run() -> void:
 	SaveService.clear_active_run()
@@ -131,22 +142,28 @@ func abandon_run() -> void:
 	_pending_item_offers.clear()
 	change_state(RunState.ATTRACT)
 
+
 func suspend_run_to_menu() -> void:
 	if current_state == RunState.GAMEPLAY or current_state == RunState.ITEM_OFFER:
 		_persist_active_run()
 	change_state(RunState.ATTRACT)
 
+
 func get_board_snapshot() -> Array:
 	return BoardService.get_board()
+
 
 func get_player_stats_snapshot() -> Dictionary:
 	return _player_stats.duplicate(true)
 
+
 func get_depth() -> int:
 	return _depth
 
+
 func get_log_snapshot() -> Array:
 	return _game_log.duplicate()
+
 
 func get_player_abilities() -> Array:
 	var abilities: Array = []
@@ -154,30 +171,39 @@ func get_player_abilities() -> Array:
 		return abilities
 	for ability in _player_stats.get("abilities", []):
 		var ability_id: StringName = ability.get("id", StringName())
-		var ability_def := ContentDB.get_ability(ability_id)
+		var ability_def: AbilityDefinitionResource = ContentDB.get_ability(ability_id)
 		if ability_def == null:
 			continue
-		abilities.append({
-			"id": ability_id,
-			"current_level": ability.get("current_level", ability.get("currentLevel", 1)),
-			"current_cooldown": ability.get("current_cooldown", ability.get("currentCooldown", 0)),
-			"definition": ability_def,
-		})
+		(
+			abilities
+			. append(
+				{
+					"id": ability_id,
+					"current_level": ability.get("current_level", ability.get("currentLevel", 1)),
+					"current_cooldown":
+					ability.get("current_cooldown", ability.get("currentCooldown", 0)),
+					"definition": ability_def,
+				}
+			)
+		)
 	return abilities
+
 
 func get_item_offers() -> Array:
 	return _pending_item_offers.duplicate(true)
 
+
 func get_run_history() -> Array:
 	return SaveService.load_run_history()
+
 
 func resolve_path(path: Array[Vector2i]) -> Dictionary:
 	ensure_initialized()
 	if current_state != RunState.GAMEPLAY:
 		return {"success": false, "reason": "not_in_gameplay"}
 
-	var board := BoardService.get_board()
-	var action_result := TurnResolver.resolve_player_action(board, _player_stats, path)
+	var board: Array = BoardService.get_board()
+	var action_result: Dictionary = TurnResolver.resolve_player_action(board, _player_stats, path)
 	if not action_result.get("valid", false):
 		return {"success": false, "reason": action_result.get("reason", "invalid_path")}
 
@@ -186,40 +212,47 @@ func resolve_path(path: Array[Vector2i]) -> Dictionary:
 	for enemy_def in action_result.get("defeated_enemies", []):
 		_player_stats["gold"] = _player_stats.get("gold", 0) + enemy_def.gold_reward
 		_player_stats["xp"] = _player_stats.get("xp", 0) + enemy_def.xp_reward
-		logs.append("You defeated %s. (+%s gold, +%s xp)" % [tr(enemy_def.display_name), enemy_def.gold_reward, enemy_def.xp_reward])
+		logs.append(
+			(
+				"You defeated %s. (+%s gold, +%s xp)"
+				% [tr(enemy_def.display_name), enemy_def.gold_reward, enemy_def.xp_reward]
+			)
+		)
 
-	var working_board: Array = action_result.get("board", board)
-	var removal_positions: Array = action_result.get("removed_positions", path)
+	var working_board: Array = action_result.get("board", board) as Array
+	var removal_positions: Array = action_result.get("removed_positions", path) as Array
 	BoardService.remove_tiles(working_board, removal_positions)
 
-	var pre_attack := TurnResolver.resolve_enemy_pre_attacks(working_board)
+	var pre_attack: Dictionary = TurnResolver.resolve_enemy_pre_attacks(working_board)
 	working_board = pre_attack.get("board", working_board)
 	logs.append_array(pre_attack.get("logs", []))
 
-	var effective_stats := StatBlock.apply_equipment(_player_stats, _config)
-	var enemy_attacks := TurnResolver.resolve_enemy_attacks(working_board, _player_stats, effective_stats, path)
+	var effective_stats: Dictionary = StatBlock.apply_equipment(_player_stats, _config)
+	var enemy_attacks: Dictionary = TurnResolver.resolve_enemy_attacks(
+		working_board, _player_stats, effective_stats, path
+	)
 	_player_stats = enemy_attacks.get("player_stats", _player_stats)
 	logs.append_array(enemy_attacks.get("logs", []))
 
-	var poison := TurnResolver.apply_poison_damage(_player_stats)
+	var poison: Dictionary = TurnResolver.apply_poison_damage(_player_stats)
 	_player_stats = poison.get("player_stats", _player_stats)
 	logs.append_array(poison.get("logs", []))
 
-	var cooldown_tick := TurnResolver.tick_down_cooldowns_and_buffs(_player_stats)
+	var cooldown_tick: Dictionary = TurnResolver.tick_down_cooldowns_and_buffs(_player_stats)
 	_player_stats = cooldown_tick.get("player_stats", _player_stats)
 	logs.append_array(cooldown_tick.get("logs", []))
 
-	var level_ups := TurnResolver.resolve_level_ups(_player_stats, _current_class_id)
+	var level_ups: Dictionary = TurnResolver.resolve_level_ups(_player_stats, _current_class_id)
 	_player_stats = level_ups.get("player_stats", _player_stats)
 	logs.append_array(level_ups.get("logs", []))
 
 	_depth += 1
-	var gravity_board := BoardService.apply_gravity_and_refill(working_board, _depth)
+	var gravity_board: Array = BoardService.apply_gravity_and_refill(working_board, _depth)
 	BoardService.set_board(gravity_board, _depth)
 
 	_append_logs(logs)
 
-	var player_dead := _player_stats.get("hp", 0) <= 0
+	var player_dead: bool = _player_stats.get("hp", 0) <= 0
 	if player_dead:
 		_record_run_history(_player_stats, _depth - 1)
 		change_state(RunState.GAME_OVER)
@@ -237,21 +270,24 @@ func resolve_path(path: Array[Vector2i]) -> Dictionary:
 		"game_over": player_dead,
 	}
 
+
 func activate_ability(ability_id: StringName) -> Dictionary:
 	ensure_initialized()
 	if current_state != RunState.GAMEPLAY:
 		return {"success": false, "reason": "not_in_gameplay"}
 
-	var board := BoardService.get_board()
-	var result := TurnResolver.activate_ability(ability_id, board, _player_stats)
+	var board: Array = BoardService.get_board()
+	var result: Dictionary = TurnResolver.activate_ability(ability_id, board, _player_stats)
 	if not result.get("success", false):
 		return result
 
 	_player_stats = result.get("player_stats", _player_stats)
-	BoardService.set_board(result.get("board", board), _depth)
+	var new_board: Array = result.get("board", board) as Array
+	BoardService.set_board(new_board, _depth)
 	_append_logs(result.get("logs", []))
 	_persist_active_run()
 	return {"success": true}
+
 
 func purchase_item_offer(index: int) -> Dictionary:
 	if current_state != RunState.ITEM_OFFER:
@@ -261,8 +297,8 @@ func purchase_item_offer(index: int) -> Dictionary:
 	if index < 0 or index >= _pending_item_offers.size():
 		return {"success": false, "reason": "invalid_index"}
 
-	var offer := _pending_item_offers[index]
-	var equipment := _player_stats.get("equipment", {})
+	var offer: Dictionary = _pending_item_offers[index]
+	var equipment: Dictionary = _player_stats.get("equipment", {})
 	if not _player_stats.has("equipment"):
 		_player_stats["equipment"] = equipment
 
@@ -276,17 +312,19 @@ func purchase_item_offer(index: int) -> Dictionary:
 			}
 			_append_logs(["You equipped the %s." % tr(offer.get("name", "item"))])
 		"upgrade":
-			var cost := offer.get("cost", 0)
+			var cost: int = offer.get("cost", 0)
 			if _player_stats.get("gold", 0) < cost:
 				return {"success": false, "reason": "not_enough_gold"}
 			_player_stats["gold"] -= cost
-			var slot := offer["slot"]
-			var equipped := equipment.get(slot)
+			var slot: StringName = offer.get("slot", StringName())
+			var equipped: Variant = equipment.get(slot)
 			if equipped == null:
 				return {"success": false, "reason": "missing_item"}
 			equipped["current_upgrade_level"] = offer["next_level"]
 			equipped["currentUpgradeLevel"] = offer["next_level"]
-			_append_logs(["Upgraded %s to Level %d." % [tr(offer.get("name", "item")), offer["next_level"]]])
+			_append_logs(
+				["Upgraded %s to Level %d." % [tr(offer.get("name", "item")), offer["next_level"]]]
+			)
 		_:
 			return {"success": false, "reason": "unknown_offer"}
 
@@ -295,6 +333,7 @@ func purchase_item_offer(index: int) -> Dictionary:
 	_persist_active_run()
 	return {"success": true}
 
+
 func skip_item_offers() -> void:
 	if current_state != RunState.ITEM_OFFER:
 		return
@@ -302,11 +341,13 @@ func skip_item_offers() -> void:
 	change_state(RunState.GAMEPLAY)
 	_persist_active_run()
 
+
 func _append_logs(new_logs: Array) -> void:
 	_game_log.append_array(new_logs)
-	var max_entries := 60
+	var max_entries: int = 60
 	if _game_log.size() > max_entries:
 		_game_log = _game_log.slice(_game_log.size() - max_entries, _game_log.size())
+
 
 func _handle_post_turn_rewards(leveled_up: bool) -> void:
 	if not leveled_up:
@@ -316,8 +357,9 @@ func _handle_post_turn_rewards(leveled_up: bool) -> void:
 		return
 	change_state(RunState.ITEM_OFFER)
 
+
 func _persist_active_run() -> void:
-	var payload := {
+	var payload: Dictionary = {
 		"player_stats": _player_stats,
 		"depth": _depth,
 		"log": _game_log,
@@ -327,16 +369,18 @@ func _persist_active_run() -> void:
 	}
 	SaveService.save_active_run(payload)
 
+
 func _xp_required_for_level(level: int) -> int:
 	if _config == null or _config.level_progression == null:
 		return 0
-	var progression := _config.level_progression
+	var progression: LevelProgressionResource = _config.level_progression
 	return int(floor(progression.base_xp * pow(progression.xp_multiplier, level - 1)))
 
+
 func _record_run_history(final_stats: Dictionary, final_depth: int) -> void:
-	var class_def := get_current_class_definition()
-	var entry := {
-		"id": Time.get_unix_time_msec(),
+	var class_def: ClassDefinitionResource = get_current_class_definition()
+	var entry: Dictionary = {
+		"id": int(Time.get_unix_time_from_system() * 1000.0),
 		"date": Time.get_datetime_string_from_system(),
 		"class_name": class_def.display_name if class_def else "Unknown",
 		"final_level": final_stats.get("level", 1),
@@ -344,6 +388,7 @@ func _record_run_history(final_stats: Dictionary, final_depth: int) -> void:
 		"score": _calculate_final_score(final_stats, final_depth),
 	}
 	SaveService.append_run_history(entry)
+
 
 func _calculate_final_score(stats: Dictionary, depth: int) -> int:
 	return int(depth * 100 + stats.get("gold", 0) * 5 + stats.get("level", 1) * 50)

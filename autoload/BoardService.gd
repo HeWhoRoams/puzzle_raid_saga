@@ -1,5 +1,4 @@
 extends Node
-class_name BoardService
 
 ## Handles board creation, tile validation, and refill logic.
 
@@ -15,6 +14,7 @@ var _difficulty: DifficultyDefinitionResource
 var _board: Array = []
 var _current_depth := 1
 
+
 func configure(config: GameConfigResource, difficulty_id: StringName = &"Normal") -> void:
 	if config == null:
 		push_error("BoardService: Config is null.")
@@ -26,6 +26,7 @@ func configure(config: GameConfigResource, difficulty_id: StringName = &"Normal"
 		_difficulty = config.difficulties[0]
 	if _difficulty == null:
 		push_error("BoardService: No difficulty definition available.")
+
 
 func regenerate_board(depth: int = 1) -> void:
 	if _config == null:
@@ -39,21 +40,27 @@ func regenerate_board(depth: int = 1) -> void:
 			row_data.append(_create_new_tile(depth))
 		_board.append(row_data)
 
+
 func get_board() -> Array:
 	return _duplicate_board(_board)
+
 
 func set_board(new_board: Array, depth: int) -> void:
 	_board = _duplicate_board(new_board)
 	_current_depth = depth
 
+
 func get_depth() -> int:
 	return _current_depth
+
 
 func get_difficulty() -> DifficultyDefinitionResource:
 	return _difficulty
 
+
 func duplicate_board(board: Array) -> Array:
 	return _duplicate_board(board)
+
 
 func validate_path(board: Array, path: Array, min_length: int) -> Dictionary:
 	var failure := {"valid": false, "reason": "invalid_path"}
@@ -62,18 +69,12 @@ func validate_path(board: Array, path: Array, min_length: int) -> Dictionary:
 	if path.size() < min_length:
 		return {"valid": false, "reason": "Path too short."}
 
-	var visited := {}
+	var visited: Dictionary = {}
 
-	func is_inside(pos: Vector2i) -> bool:
-		if pos.y < 0 or pos.y >= board.size():
-			return false
-		var row: Array = board[pos.y]
-		return pos.x >= 0 and pos.x < row.size()
-
-	if not is_inside(path[0]):
+	if not _is_inside_board(board, path[0]):
 		return failure
 
-	var start_tile := board[path[0].y][path[0].x]
+	var start_tile: Dictionary = board[path[0].y][path[0].x]
 	if start_tile == null:
 		return failure
 
@@ -82,7 +83,7 @@ func validate_path(board: Array, path: Array, min_length: int) -> Dictionary:
 
 	for index in range(path.size()):
 		var pos: Vector2i = path[index]
-		if not is_inside(pos):
+		if not _is_inside_board(board, pos):
 			return {"valid": false, "reason": "Path left the board."}
 		var tile = board[pos.y][pos.x]
 		if tile == null:
@@ -105,8 +106,10 @@ func validate_path(board: Array, path: Array, min_length: int) -> Dictionary:
 
 	return {"valid": true, "path_type": base_type, "is_attack_path": attack_path}
 
+
 func is_attack_path(path_type: StringName) -> bool:
 	return path_type == TILE_SWORD or path_type == TILE_SKULL
+
 
 func apply_gravity_and_refill(board: Array, depth: int) -> Array:
 	var size := _config.board_size
@@ -128,6 +131,7 @@ func apply_gravity_and_refill(board: Array, depth: int) -> Array:
 
 	return new_board
 
+
 func remove_tiles(board: Array, positions: Array) -> void:
 	for pos in positions:
 		if pos.y >= 0 and pos.y < board.size():
@@ -135,8 +139,10 @@ func remove_tiles(board: Array, positions: Array) -> void:
 			if pos.x >= 0 and pos.x < row.size():
 				row[pos.x] = null
 
+
 func next_tile_id() -> String:
 	return "%s_%s" % [Time.get_ticks_usec(), _rng.randi()]
+
 
 func _create_new_tile(depth: int) -> Dictionary:
 	var tile_def := _pick_weighted_tile()
@@ -148,6 +154,7 @@ func _create_new_tile(depth: int) -> Dictionary:
 			return _create_skull_tile(enemy_def)
 		return {"id": next_tile_id(), "type": TILE_SWORD}
 	return {"id": next_tile_id(), "type": tile_def.tile_type, "is_new": true}
+
 
 func _create_skull_tile(enemy_def: EnemyDefinitionResource) -> Dictionary:
 	var multiplier := _difficulty.stat_multiplier if _difficulty else 1.0
@@ -166,6 +173,7 @@ func _create_skull_tile(enemy_def: EnemyDefinitionResource) -> Dictionary:
 		"is_new": true,
 	}
 
+
 func _pick_weighted_tile() -> TileDefinitionResource:
 	var total := 0.0
 	for def in _config.tile_types:
@@ -175,7 +183,8 @@ func _pick_weighted_tile() -> TileDefinitionResource:
 		if roll <= def.weight:
 			return def
 		roll -= def.weight
-	return _config.tile_types.is_empty() ? null : _config.tile_types[0]
+	return null if _config.tile_types.is_empty() else _config.tile_types[0]
+
 
 func _select_enemy_for_spawn(depth: int) -> EnemyDefinitionResource:
 	var eligible: Array[EnemyDefinitionResource] = []
@@ -201,12 +210,21 @@ func _select_enemy_for_spawn(depth: int) -> EnemyDefinitionResource:
 		roll -= effective_rarity
 	return eligible[0]
 
+
 func _is_adjacent(a: Vector2i, b: Vector2i) -> bool:
 	var diff := a - b
 	return abs(diff.x) <= 1 and abs(diff.y) <= 1 and (diff.x != 0 or diff.y != 0)
+
 
 func _duplicate_board(board: Array) -> Array:
 	var copy: Array = []
 	for row in board:
 		copy.append(row.duplicate(true))
 	return copy
+
+
+func _is_inside_board(board: Array, pos: Vector2i) -> bool:
+	if pos.y < 0 or pos.y >= board.size():
+		return false
+	var row: Array = board[pos.y]
+	return pos.x >= 0 and pos.x < row.size()

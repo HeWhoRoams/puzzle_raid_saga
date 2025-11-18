@@ -7,20 +7,23 @@ signal offers_skipped
 
 var _offers: Array = []
 
+
 func _ready() -> void:
 	%SkipButton.pressed.connect(_on_skip)
+
 
 func set_offers(offers: Array) -> void:
 	_offers = offers
 	visible = not _offers.is_empty()
 	_refresh_offers()
 
+
 func _refresh_offers() -> void:
 	for child in offers_container.get_children():
 		child.queue_free()
 
 	for index in range(_offers.size()):
-		var offer := _offers[index]
+		var offer: Dictionary = _offers[index]
 		var panel := PanelContainer.new()
 		var vbox := VBoxContainer.new()
 		vbox.theme_override_constants.separation = 4
@@ -42,7 +45,7 @@ func _refresh_offers() -> void:
 		desc.autowrap_mode = TextServer.AUTOWRAP_WORD
 		vbox.add_child(desc)
 
-		var modifiers := offer.get("modifiers", {})
+		var modifiers: Dictionary = offer.get("modifiers", {})
 		if not modifiers.is_empty():
 			var mods_label := Label.new()
 			mods_label.text = "Mods: %s" % _format_modifiers(modifiers)
@@ -50,7 +53,7 @@ func _refresh_offers() -> void:
 			vbox.add_child(mods_label)
 
 		var cost_label := Label.new()
-		var cost := offer.get("cost", 0)
+		var cost: int = offer.get("cost", 0)
 		if cost > 0:
 			cost_label.text = "Cost: %d gold" % cost
 		else:
@@ -59,21 +62,23 @@ func _refresh_offers() -> void:
 
 		var button := Button.new()
 		button.text = "Select"
-		button.pressed.connect(func(idx := index):
-			offer_selected.emit(idx)
-		)
+		var offer_index := index
+		button.pressed.connect(func(): offer_selected.emit(offer_index))
 		vbox.add_child(button)
 
 		offers_container.add_child(panel)
 
+
 func _on_skip() -> void:
 	offers_skipped.emit()
+
 
 func _load_icon(path: String) -> Texture2D:
 	if path.is_empty():
 		return null
 	var tex := ResourceLoader.load(path)
 	return tex if tex is Texture2D else null
+
 
 func _format_modifiers(modifiers: Dictionary) -> String:
 	var parts: Array[String] = []

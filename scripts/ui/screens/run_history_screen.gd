@@ -7,13 +7,16 @@ signal clear_requested
 
 var _history: Array = []
 
+
 func _ready() -> void:
 	%BackButton.pressed.connect(_on_back_pressed)
 	%ClearHistoryButton.pressed.connect(_on_clear_pressed)
 
+
 func set_history(entries: Array) -> void:
 	_history = entries
 	_refresh_history()
+
 
 func _refresh_history() -> void:
 	for child in history_list.get_children():
@@ -37,17 +40,22 @@ func _refresh_history() -> void:
 		vbox.add_child(header)
 
 		var stats_label := Label.new()
-		stats_label.text = "Depth %d | Level %d | Score %d" % [
-			entry.get("final_depth", 0),
-			entry.get("final_level", 1),
-			entry.get("score", 0),
-		]
+		stats_label.text = (
+			"Depth %d | Level %d | Score %d"
+			% [
+				entry.get("final_depth", 0),
+				entry.get("final_level", 1),
+				entry.get("score", 0),
+			]
+		)
 		vbox.add_child(stats_label)
 
 		history_list.add_child(panel)
 
+
 func _on_back_pressed() -> void:
 	back_requested.emit()
+
 
 func _on_clear_pressed() -> void:
 	clear_requested.emit()

@@ -14,13 +14,15 @@ const BASE_STATS := {
 	"abilities": [],
 	"poison_stacks": 0,
 	"buffs": [],
-	"equipment": {
+	"equipment":
+	{
 		"weapon": null,
 		"armor": null,
 		"accessory1": null,
 		"accessory2": null,
 	},
 }
+
 
 static func create_for_class(class_def: ClassDefinitionResource) -> Dictionary:
 	var stats := BASE_STATS.duplicate(true)
@@ -38,10 +40,15 @@ static func create_for_class(class_def: ClassDefinitionResource) -> Dictionary:
 
 	if class_def:
 		for ability_id in class_def.starting_ability_ids:
-			stats["abilities"].append({
-				"id": ability_id,
-				"current_level": 1,
-				"current_cooldown": 0,
-			})
+			(
+				stats["abilities"]
+				. append(
+					{
+						"id": ability_id,
+						"current_level": 1,
+						"current_cooldown": 0,
+					}
+				)
+			)
 
 	return stats

@@ -1,5 +1,4 @@
 extends Node
-class_name ContentDB
 
 ## Responsible for loading and indexing game definitions.
 
@@ -10,27 +9,35 @@ var _enemy_map: Dictionary = {}
 var _item_map: Dictionary = {}
 var _difficulty_map: Dictionary = {}
 
+
 func load_from_resource(config_resource: GameConfigResource) -> void:
 	_config = config_resource
 	_index_resources()
 
+
 func get_config() -> GameConfigResource:
 	return _config
+
 
 func get_ability(id: StringName) -> AbilityDefinitionResource:
 	return _ability_map.get(id)
 
-func get_class(id: StringName) -> ClassDefinitionResource:
+
+func get_class_definition(id: StringName) -> ClassDefinitionResource:
 	return _class_map.get(id)
+
 
 func get_enemy(id: StringName) -> EnemyDefinitionResource:
 	return _enemy_map.get(id)
 
+
 func get_item(id: StringName) -> ItemDefinitionResource:
 	return _item_map.get(id)
 
+
 func get_difficulty(id: StringName) -> DifficultyDefinitionResource:
 	return _difficulty_map.get(id)
+
 
 func _index_resources() -> void:
 	_ability_map.clear()

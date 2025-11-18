@@ -4,9 +4,11 @@ signal ability_pressed(ability_id: StringName)
 
 var _abilities: Array = []
 
+
 func set_abilities(abilities: Array) -> void:
 	_abilities = abilities
 	_refresh()
+
 
 func _refresh() -> void:
 	for child in get_children():
@@ -34,24 +36,25 @@ func _refresh() -> void:
 		card.add_child(label)
 
 		var button := Button.new()
-		var cooldown := ability.get("current_cooldown", 0)
-		var button_text := cooldown > 0 ? "Cooling (%d)" % cooldown : "Activate"
+		var cooldown: int = ability.get("current_cooldown", 0)
+		var button_text := "Cooling (%d)" % cooldown if cooldown > 0 else "Activate"
 		button.text = button_text
 		button.disabled = cooldown > 0
 		button.tooltip_text = tr(def.description)
 		button.shortcut = _build_shortcut(card.get_child_count())
-		button.pressed.connect(func(id := ability.get("id")):
-			ability_pressed.emit(id)
-		)
+		var ability_id: StringName = ability.get("id", StringName())
+		button.pressed.connect(func(): ability_pressed.emit(ability_id))
 		card.add_child(button)
 
 		add_child(card)
+
 
 func _load_icon(path: String) -> Texture2D:
 	if path.is_empty():
 		return null
 	var res := ResourceLoader.load(path)
 	return res if res is Texture2D else null
+
 
 func _build_shortcut(index: int) -> Shortcut:
 	var shortcut := Shortcut.new()

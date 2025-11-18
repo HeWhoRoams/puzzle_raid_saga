@@ -1,7 +1,10 @@
 extends RefCounted
 class_name ItemOfferGenerator
 
-static func generate_offers(player_stats: Dictionary, config: GameConfigResource, max_offers: int = 3) -> Array:
+
+static func generate_offers(
+	player_stats: Dictionary, config: GameConfigResource, max_offers: int = 3
+) -> Array:
 	var offers: Array = []
 	if config == null:
 		return offers
@@ -29,28 +32,36 @@ static func generate_offers(player_stats: Dictionary, config: GameConfigResource
 		var item_def := _find_item(config.items, equipped_id)
 		if item_def == null:
 			continue
-		var current_level := int(equipped.get("current_upgrade_level", equipped.get("currentUpgradeLevel", 1)))
+		var current_level := int(
+			equipped.get("current_upgrade_level", equipped.get("currentUpgradeLevel", 1))
+		)
 		if current_level >= item_def.upgrade_path.size():
 			continue
 		var next_level := current_level + 1
 		var upgrade_info: Dictionary = item_def.upgrade_path[next_level - 1]
-		offers.append({
-			"type": "upgrade",
-			"item_id": item_def.content_id,
-			"name": item_def.display_name,
-			"description": item_def.description,
-			"slot": slot,
-			"current_level": current_level,
-			"next_level": next_level,
-			"cost": upgrade_info.get("cost", 0),
-			"modifiers": upgrade_info.get("modifiers", {}),
-			"icon_path": item_def.icon_path,
-		})
+		(
+			offers
+			. append(
+				{
+					"type": "upgrade",
+					"item_id": item_def.content_id,
+					"name": item_def.display_name,
+					"description": item_def.description,
+					"slot": slot,
+					"current_level": current_level,
+					"next_level": next_level,
+					"cost": upgrade_info.get("cost", 0),
+					"modifiers": upgrade_info.get("modifiers", {}),
+					"icon_path": item_def.icon_path,
+				}
+			)
+		)
 
 	if offers.size() > max_offers:
 		offers.shuffle()
 		return offers.slice(0, max_offers)
 	return offers
+
 
 static func _items_for_slot(items: Array, slot: StringName) -> Array:
 	var filtered: Array = []
@@ -59,11 +70,13 @@ static func _items_for_slot(items: Array, slot: StringName) -> Array:
 			filtered.append(item)
 	return filtered
 
+
 static func _find_item(items: Array, item_id: String) -> ItemDefinitionResource:
 	for item in items:
 		if item.content_id == item_id:
 			return item
 	return null
+
 
 static func _build_new_item_offer(item_def: ItemDefinitionResource) -> Dictionary:
 	return {
@@ -73,6 +86,7 @@ static func _build_new_item_offer(item_def: ItemDefinitionResource) -> Dictionar
 		"description": item_def.description,
 		"slot": item_def.slot,
 		"cost": 0,
-		"modifiers": item_def.upgrade_path[0].get("modifiers", {}) if item_def.upgrade_path.size() > 0 else {},
+		"modifiers":
+		item_def.upgrade_path[0].get("modifiers", {}) if item_def.upgrade_path.size() > 0 else {},
 		"icon_path": item_def.icon_path,
 	}
