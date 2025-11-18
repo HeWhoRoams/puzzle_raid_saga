@@ -1,0 +1,168 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/gameplay/game_board.gd" id="1_koqbj"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/BoardView.tscn" id="2_xqgrm"]
+[ext_resource type="PackedScene" path="res://scenes/ui/AbilityBar.tscn" id="3_7a6el"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7gcdw"]
+bg_color = Color(0.113725, 0.0745098, 0.168627, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rrxls"]
+bg_color = Color(0.0941176, 0.0666667, 0.129412, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="GameBoard" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_koqbj")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="TopBar" type="HBoxContainer" parent="Layout"]
+custom_minimum_size = Vector2(0, 90)
+theme_override_constants/separation = 12
+
+[node name="AbilityBar" parent="Layout/TopBar" instance=ExtResource("3_7a6el")]
+unique_name_in_owner = true
+size_flags_horizontal = 3
+size_flags_vertical = 3
+anchors_preset = 10
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 2
+
+[node name="MenuStats" type="VBoxContainer" parent="Layout/TopBar"]
+custom_minimum_size = Vector2(96, 0)
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="MenuButton" type="Button" parent="Layout/TopBar/MenuStats"]
+unique_name_in_owner = true
+text = "Menu"
+size_flags_vertical = 3
+
+[node name="StatsButton" type="Button" parent="Layout/TopBar/MenuStats"]
+unique_name_in_owner = true
+text = "Stats"
+size_flags_vertical = 3
+
+[node name="BoardPanel" type="Panel" parent="Layout"]
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_7gcdw")
+
+[node name="BoardMargin" type="MarginContainer" parent="Layout/BoardPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="BoardView" parent="Layout/BoardPanel/BoardMargin" instance=ExtResource("2_xqgrm")]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DescriptionPanel" type="PanelContainer" parent="Layout/BoardPanel"]
+custom_minimum_size = Vector2(0, 100)
+theme_override_styles/panel = SubResource("StyleBoxFlat_rrxls")
+
+[node name="DescriptionVBox" type="VBoxContainer" parent="Layout/BoardPanel/DescriptionPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+
+[node name="DescriptionTitle" type="Label" parent="Layout/BoardPanel/DescriptionPanel/DescriptionVBox"]
+unique_name_in_owner = true
+theme_override_font_sizes/font_size = 18
+text = "Tile Info"
+
+[node name="DescriptionBody" type="RichTextLabel" parent="Layout/BoardPanel/DescriptionPanel/DescriptionVBox"]
+unique_name_in_owner = true
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "Descriptions and battle information will appear here."
+
+[node name="BottomBar" type="HBoxContainer" parent="Layout"]
+custom_minimum_size = Vector2(0, 140)
+theme_override_constants/separation = 12
+
+[node name="CoinStack" type="VBoxContainer" parent="Layout/BottomBar"]
+size_flags_horizontal = 2
+theme_override_constants/separation = 6
+
+[node name="CoinTitle" type="Label" parent="Layout/BottomBar/CoinStack"]
+text = "Coin Stack"
+
+[node name="CoinValueLabel" type="Label" parent="Layout/BottomBar/CoinStack"]
+unique_name_in_owner = true
+text = "0"
+
+[node name="CoinProgress" type="ProgressBar" parent="Layout/BottomBar/CoinStack"]
+unique_name_in_owner = true
+max_value = 100.0
+
+[node name="StatsPanel" type="VBoxContainer" parent="Layout/BottomBar"]
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="MonsterStatsLabel" type="Label" parent="Layout/BottomBar/StatsPanel"]
+unique_name_in_owner = true
+text = "Monster: 0"
+
+[node name="ShieldRow" type="HBoxContainer" parent="Layout/BottomBar/StatsPanel"]
+theme_override_constants/separation = 6
+
+[node name="ShieldRatioLabel" type="Label" parent="Layout/BottomBar/StatsPanel/ShieldRow"]
+unique_name_in_owner = true
+text = "Shield 0/0"
+
+[node name="AttackValueLabel" type="Label" parent="Layout/BottomBar/StatsPanel/ShieldRow"]
+unique_name_in_owner = true
+text = "ATK 0"
+
+[node name="GearProgress" type="ProgressBar" parent="Layout/BottomBar/StatsPanel"]
+unique_name_in_owner = true
+max_value = 10.0
+value = 0.0
+custom_minimum_size = Vector2(0, 12)
+
+[node name="XPProgress" type="ProgressBar" parent="Layout/BottomBar/StatsPanel"]
+unique_name_in_owner = true
+max_value = 100.0
+custom_minimum_size = Vector2(0, 12)
+
+[node name="HealthPanel" type="VBoxContainer" parent="Layout/BottomBar"]
+size_flags_horizontal = 2
+theme_override_constants/separation = 6
+
+[node name="HealthLabel" type="Label" parent="Layout/BottomBar/HealthPanel"]
+unique_name_in_owner = true
+text = "HP 0/0"
+horizontal_alignment = 1
+
+[node name="HealthProgress" type="ProgressBar" parent="Layout/BottomBar/HealthPanel"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 60)
+max_value = 100.0
+max_value = 100.0

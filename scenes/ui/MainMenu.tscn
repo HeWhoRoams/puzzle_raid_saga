@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://mainmenu"]
+[gd_scene load_steps=2 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/screens/main_menu.gd" id="1_kbjjx"]
 
@@ -12,6 +12,7 @@ grow_vertical = 2
 script = ExtResource("1_kbjjx")
 
 [node name="Background" type="TextureRect" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -52,16 +53,19 @@ text = "Puzzle Raid"
 horizontal_alignment = 1
 
 [node name="NewGameButton" type="Button" parent="ButtonColumn"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "New Game"
 size_flags_horizontal = 3
 
 [node name="ContinueButton" type="Button" parent="ButtonColumn"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Continue"
 size_flags_horizontal = 3
 
 [node name="ScoresButton" type="Button" parent="ButtonColumn"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Scores"
 size_flags_horizontal = 3

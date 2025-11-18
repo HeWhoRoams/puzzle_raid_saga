@@ -1,0 +1,202 @@
+{
+  "options": [
+    {
+      "id": "charisma_boost",
+      "name": "+Charisma",
+      "description": "Coins, shields, XP, and potions gains increase by 5%.",
+      "cooldown": null
+    },
+    {
+      "id": "damage_boost",
+      "name": "+Damage",
+      "description": "Base damage increases by 2.",
+      "cooldown": null
+    },
+    {
+      "id": "defense_boost",
+      "name": "+Defense",
+      "description": "Defense per shield increases by 2.",
+      "cooldown": null
+    },
+    {
+      "id": "dexterity_boost",
+      "name": "+Dexterity",
+      "description": "Defense per shield +1 and bonus shield chance +5%.",
+      "cooldown": null
+    },
+    {
+      "id": "luck_boost",
+      "name": "+Luck",
+      "description": "Health per potion +1 and bonus coin chance +5%.",
+      "cooldown": null
+    },
+    {
+      "id": "strength_boost",
+      "name": "+Strength",
+      "description": "Base damage +1 and bonus XP chance +5%.",
+      "cooldown": null
+    },
+    {
+      "id": "vitality_boost",
+      "name": "+Vitality",
+      "description": "Max health +5 and bonus potion chance +5%.",
+      "cooldown": null
+    },
+    {
+      "id": "banish",
+      "name": "Banish",
+      "description": "Kill a special monster without rewards.",
+      "cooldown": 22
+    },
+    {
+      "id": "big_game_hunter",
+      "name": "Big game hunter",
+      "description": "Convert a normal monster into a special monster.",
+      "cooldown": 15
+    },
+    {
+      "id": "boost_damage",
+      "name": "Boost damage",
+      "description": "Swords deal double damage for the next turn.",
+      "cooldown": 14
+    },
+    {
+      "id": "boost_health",
+      "name": "Boost health",
+      "description": "Potions deliver double healing for the next turn.",
+      "cooldown": 15
+    },
+    {
+      "id": "counterattack",
+      "name": "Counterattack",
+      "description": "Next turn, enemies attack themselves.",
+      "cooldown": 18
+    },
+    {
+      "id": "dazzle",
+      "name": "Dazzle",
+      "description": "Convert all coin tiles into swords.",
+      "cooldown": 15
+    },
+    {
+      "id": "disarm",
+      "name": "Disarm",
+      "description": "Convert all shield tiles into swords.",
+      "cooldown": 25
+    },
+    {
+      "id": "earthquake",
+      "name": "Earthquake",
+      "description": "Rearrange every tile on the board.",
+      "cooldown": 12
+    },
+    {
+      "id": "enchant",
+      "name": "Enchant",
+      "description": "Instantly upgrade a random item.",
+      "cooldown": 35
+    },
+    {
+      "id": "exorcise",
+      "name": "Exorcise",
+      "description": "Convert special monsters into normal monsters.",
+      "cooldown": 18
+    },
+    {
+      "id": "explosive_armour",
+      "name": "Explosive armour",
+      "description": "Deal damage to skulls equal to 2x your armor value.",
+      "cooldown": 16
+    },
+    {
+      "id": "explosive_potion",
+      "name": "Explosive potion",
+      "description": "Matched potions destroy adjacent tiles.",
+      "cooldown": 18
+    },
+    {
+      "id": "fireball",
+      "name": "Fireball",
+      "description": "Collect a random 3x3 block of tiles.",
+      "cooldown": 14
+    },
+    {
+      "id": "freeze",
+      "name": "Freeze",
+      "description": "No enemies attack next turn.",
+      "cooldown": 16
+    },
+    {
+      "id": "golden_touch",
+      "name": "Golden touch",
+      "description": "Convert all swords into coins.",
+      "cooldown": 15
+    },
+    {
+      "id": "heal",
+      "name": "Heal",
+      "description": "Collect every healing potion on the board.",
+      "cooldown": 15
+    },
+    {
+      "id": "mana_potion",
+      "name": "Mana potions",
+      "description": "Matched potions reduce ability cooldowns.",
+      "cooldown": 20
+    },
+    {
+      "id": "repair",
+      "name": "Repair",
+      "description": "Collect all shields on the board.",
+      "cooldown": 16
+    },
+    {
+      "id": "scavenge",
+      "name": "Scavenge",
+      "description": "Convert all swords into shields.",
+      "cooldown": 15
+    },
+    {
+      "id": "shatter",
+      "name": "Shatter",
+      "description": "Destroy enemies’ defense and attack values.",
+      "cooldown": 12
+    },
+    {
+      "id": "skill_elixir",
+      "name": "Skill elixir",
+      "description": "Collect all healing potions as XP instead.",
+      "cooldown": 18
+    },
+    {
+      "id": "steal",
+      "name": "Steal",
+      "description": "Attacking enemies grants gold this turn.",
+      "cooldown": 13
+    },
+    {
+      "id": "teleport",
+      "name": "Teleport",
+      "description": "Refresh the board with new tiles without skulls.",
+      "cooldown": 20
+    },
+    {
+      "id": "trap",
+      "name": "Trap",
+      "description": "All monsters spawn with 1 HP for the next turn.",
+      "cooldown": 18
+    },
+    {
+      "id": "treasure_chamber",
+      "name": "Treasure chamber",
+      "description": "All new tiles become coins for the next turn.",
+      "cooldown": 25
+    },
+    {
+      "id": "treasure",
+      "name": "Treasure",
+      "description": "Collect all coins currently on the board.",
+      "cooldown": 18
+    }
+  ]
+}

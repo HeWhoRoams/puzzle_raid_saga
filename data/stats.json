@@ -1,0 +1,130 @@
+{
+  "primary": [
+    {
+      "id": "strength",
+      "name": "Strength",
+      "description": "Adds to raw power. Each point increases both base damage and the chance to gain bonus XP.",
+      "base_value": 0,
+      "effects": [
+        {
+          "id": "base_damage",
+          "name": "Base Damage",
+          "description": "Damage dealt to skulls before matching any swords.",
+          "base_value": 1,
+          "per_point": 1,
+          "unit": "damage"
+        },
+        {
+          "id": "bonus_xp_chance",
+          "name": "Bonus XP chance",
+          "description": "Chance of gaining extra XP for each skull beyond the first three matched in a turn.",
+          "base_value": 0.05,
+          "per_point": 0.05,
+          "unit": "probability"
+        }
+      ]
+    },
+    {
+      "id": "dexterity",
+      "name": "Dexterity",
+      "description": "Improves defensive responses when matching shields.",
+      "base_value": 0,
+      "effects": [
+        {
+          "id": "defense_per_shield",
+          "name": "Defense per shield",
+          "description": "Defense restored from a single shield tile.",
+          "base_value": 2,
+          "per_point": 0.5,
+          "unit": "defense"
+        },
+        {
+          "id": "bonus_shield_chance",
+          "name": "Bonus shield chance",
+          "description": "Chance of generating extra shields for each tile after the third in the same match.",
+          "base_value": 0.05,
+          "per_point": 0.05,
+          "unit": "probability"
+        }
+      ]
+    },
+    {
+      "id": "vitality",
+      "name": "Vitality",
+      "description": "Boosts health pool and potion match bonuses.",
+      "base_value": 0,
+      "effects": [
+        {
+          "id": "max_health",
+          "name": "Max health",
+          "description": "Total health the player can have.",
+          "base_value": 50,
+          "per_point": 5,
+          "unit": "hp"
+        },
+        {
+          "id": "bonus_potion_chance",
+          "name": "Bonus potion chance",
+          "description": "Chance to receive extra potions for each additional potion beyond three matched in a turn.",
+          "base_value": 0.05,
+          "per_point": 0.05,
+          "unit": "probability"
+        }
+      ]
+    },
+    {
+      "id": "luck",
+      "name": "Luck",
+      "description": "Determines the effectiveness of potions and bonus coins.",
+      "base_value": 0,
+      "effects": [
+        {
+          "id": "health_per_potion",
+          "name": "Health per potion",
+          "description": "Amount of health restored per potion tile.",
+          "base_value": 8,
+          "per_point": 1,
+          "unit": "hp"
+        },
+        {
+          "id": "bonus_coin_chance",
+          "name": "Bonus coin chance",
+          "description": "Chance to generate extra coins for each coin beyond the first three matched.",
+          "base_value": 0.05,
+          "per_point": 0.05,
+          "unit": "probability"
+        }
+      ]
+    }
+  ],
+  "combat": [
+    {
+      "id": "weapon_damage",
+      "name": "Weapon damage",
+      "description": "Damage inflicted per sword matched.",
+      "base_value": 4,
+      "unit": "damage"
+    },
+    {
+      "id": "armor_piercing",
+      "name": "Armor piercing",
+      "description": "Chance that sword damage bypasses skull armor.",
+      "base_value": 0.5,
+      "unit": "probability"
+    },
+    {
+      "id": "defense",
+      "name": "Defense",
+      "description": "Flat damage reduction applied before health is affected.",
+      "base_value": 2,
+      "unit": "defense"
+    },
+    {
+      "id": "armor_durability",
+      "name": "Armor durability",
+      "description": "Chance that armor absorbing damage does not reduce defense.",
+      "base_value": 0.5,
+      "unit": "probability"
+    }
+  ]
+}

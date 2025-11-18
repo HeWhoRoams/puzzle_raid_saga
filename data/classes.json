@@ -1,0 +1,54 @@
+{
+  "classes": [
+    {
+      "id": "adventurer",
+      "name": "Adventurer",
+      "context_markdown": "data/context/classes/adventurer.md"
+    },
+    {
+      "id": "assassin",
+      "name": "Assassin",
+      "context_markdown": "data/context/classes/assassin.md"
+    },
+    {
+      "id": "barbarian",
+      "name": "Barbarian",
+      "context_markdown": "data/context/classes/barbarian.md"
+    },
+    {
+      "id": "mage",
+      "name": "Mage",
+      "context_markdown": "data/context/classes/mage.md"
+    },
+    {
+      "id": "paladin",
+      "name": "Paladin",
+      "context_markdown": "data/context/classes/paladin.md"
+    },
+    {
+      "id": "priest",
+      "name": "Priest",
+      "context_markdown": "data/context/classes/priest.md"
+    },
+    {
+      "id": "raider",
+      "name": "Raider",
+      "context_markdown": "data/context/classes/raider.md"
+    },
+    {
+      "id": "ranger",
+      "name": "Ranger",
+      "context_markdown": "data/context/classes/ranger.md"
+    },
+    {
+      "id": "rogue",
+      "name": "Rogue",
+      "context_markdown": "data/context/classes/rogue.md"
+    },
+    {
+      "id": "warrior",
+      "name": "Warrior",
+      "context_markdown": "data/context/classes/warrior.md"
+    }
+  ]
+}

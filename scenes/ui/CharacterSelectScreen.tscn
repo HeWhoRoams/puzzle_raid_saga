@@ -1,0 +1,186 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/screens/character_select_screen.gd" id="1_o0ape"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q826x"]
+bg_color = Color(0.117647, 0.101961, 0.180392, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r66nc"]
+bg_color = Color(0.152941, 0.137255, 0.215686, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="CharacterSelectScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+script = ExtResource("1_o0ape")
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.0470588, 0.0352941, 0.0784314, 1)
+
+[node name="LayoutRoot" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+
+[node name="TabsRow" type="HBoxContainer" parent="LayoutRoot"]
+custom_minimum_size = Vector2(0, 80)
+theme_override_constants/separation = 16
+
+[node name="ClassTabButton" type="Button" parent="LayoutRoot/TabsRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 72)
+size_flags_horizontal = 3
+text = "Class"
+theme_override_styles/normal = SubResource("StyleBoxFlat_q826x")
+
+[node name="RaceTabButton" type="Button" parent="LayoutRoot/TabsRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 72)
+size_flags_horizontal = 3
+text = "Race"
+theme_override_styles/normal = SubResource("StyleBoxFlat_q826x")
+
+[node name="PerksTabButton" type="Button" parent="LayoutRoot/TabsRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 72)
+size_flags_horizontal = 3
+text = "Perks & Flaws"
+theme_override_styles/normal = SubResource("StyleBoxFlat_q826x")
+
+[node name="SkillsTabButton" type="Button" parent="LayoutRoot/TabsRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 72)
+size_flags_horizontal = 3
+text = "Skills"
+theme_override_styles/normal = SubResource("StyleBoxFlat_q826x")
+
+[node name="ContentPanel" type="Panel" parent="LayoutRoot"]
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_r66nc")
+
+[node name="ContentMargin" type="MarginContainer" parent="LayoutRoot/ContentPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="ContentStack" type="VBoxContainer" parent="LayoutRoot/ContentPanel/ContentMargin"]
+	unique_name_in_owner = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ClassPanel" type="VBoxContainer" parent="LayoutRoot/ContentPanel/ContentMargin/ContentStack"]
+	visible = false
+	theme_override_constants/separation = 12
+
+[node name="ClassTitle" type="Label" parent="LayoutRoot/ContentPanel/ContentMargin/ContentStack/ClassPanel"]
+unique_name_in_owner = true
+	custom_minimum_size = Vector2(0, 32)
+	text = "Class Overview"
+	theme_override_font_sizes/font_size = 26
+
+[node name="ClassDescription" type="RichTextLabel" parent="LayoutRoot/ContentPanel/ContentMargin/ContentStack/ClassPanel"]
+unique_name_in_owner = true
+	custom_minimum_size = Vector2(0, 80)
+	size_flags_vertical = 3
+	text = "Class description goes here."
+
+[node name="ClassStatsGrid" type="GridContainer" parent="LayoutRoot/ContentPanel/ContentMargin/ContentStack/ClassPanel"]
+unique_name_in_owner = true
+	columns = 2
+
+[node name="LevelRewards" type="HBoxContainer" parent="LayoutRoot/ContentPanel/ContentMargin/ContentStack/ClassPanel"]
+unique_name_in_owner = true
+	theme_override_constants/separation = 8
+
+[node name="RacePanel" type="VBoxContainer" parent="LayoutRoot/ContentPanel/ContentMargin/ContentStack"]
+	visible = false
+	theme_override_constants/separation = 12
+
+[node name="RaceTitle" type="Label" parent="LayoutRoot/ContentPanel/ContentMargin/ContentStack/RacePanel"]
+unique_name_in_owner = true
+text = "Race Options"
+theme_override_font_sizes/font_size = 26
+
+[node name="RaceDescription" type="RichTextLabel" parent="LayoutRoot/ContentPanel/ContentMargin/ContentStack/RacePanel"]
+unique_name_in_owner = true
+	size_flags_vertical = 3
+	text = "Preview available races and their bonuses."
+
+[node name="RaceTraitsList" type="ItemList" parent="LayoutRoot/ContentPanel/ContentMargin/ContentStack/RacePanel"]
+unique_name_in_owner = true
+	size_flags_vertical = 3
+
+[node name="PerksPanel" type="VBoxContainer" parent="LayoutRoot/ContentPanel/ContentMargin/ContentStack"]
+	visible = false
+theme_override_constants/separation = 12
+
+[node name="PerksTitle" type="Label" parent="LayoutRoot/ContentPanel/ContentMargin/ContentStack/PerksPanel"]
+text = "Perks & Flaws"
+theme_override_font_sizes/font_size = 26
+
+[node name="PerksList" type="ItemList" parent="LayoutRoot/ContentPanel/ContentMargin/ContentStack/PerksPanel"]
+unique_name_in_owner = true
+	size_flags_vertical = 3
+
+[node name="SkillsPanel" type="VBoxContainer" parent="LayoutRoot/ContentPanel/ContentMargin/ContentStack"]
+theme_override_constants/separation = 12
+
+[node name="SkillsTitle" type="Label" parent="LayoutRoot/ContentPanel/ContentMargin/ContentStack/SkillsPanel"]
+text = "Skill Loadout"
+theme_override_font_sizes/font_size = 26
+
+[node name="SkillsGrid" type="GridContainer" parent="LayoutRoot/ContentPanel/ContentMargin/ContentStack/SkillsPanel"]
+unique_name_in_owner = true
+	columns = 5
+	size_flags_vertical = 3
+
+[node name="ContextArea" type="HBoxContainer" parent="LayoutRoot"]
+theme_override_constants/separation = 12
+
+[node name="ContextText" type="VBoxContainer" parent="LayoutRoot/ContextArea"]
+size_flags_horizontal = 3
+
+[node name="ContextTitle" type="Label" parent="LayoutRoot/ContextArea/ContextText"]
+unique_name_in_owner = true
+text = "Choose a class"
+theme_override_font_sizes/font_size = 24
+
+[node name="ContextBody" type="RichTextLabel" parent="LayoutRoot/ContextArea/ContextText"]
+unique_name_in_owner = true
+size_flags_vertical = 3
+text = "Select a tab to view available options."
+
+[node name="ActionButtons" type="HBoxContainer" parent="LayoutRoot/ContextArea"]
+alignment = 2
+theme_override_constants/separation = 12
+
+[node name="HelpButton" type="Button" parent="LayoutRoot/ContextArea/ActionButtons"]
+unique_name_in_owner = true
+text = "Help"
+
+[node name="ReturnButton" type="Button" parent="LayoutRoot/ContextArea/ActionButtons"]
+unique_name_in_owner = true
+text = "Return"

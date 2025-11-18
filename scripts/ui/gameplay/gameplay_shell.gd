@@ -3,12 +3,11 @@ extends Control
 signal run_abandoned
 signal return_to_menu_requested
 
+@onready var game_board: Control = %GameBoard
 @onready var board_view: Control = %BoardView
-@onready var run_info: Label = %RunInfo
 @onready var buff_container: HBoxContainer = %BuffContainer
 @onready var log_label: RichTextLabel = %LogLabel
 @onready var game_over_label: Label = %GameOverLabel
-@onready var xp_label: Label = %XPLabel
 @onready var ability_bar: Control = %AbilityBar
 @onready var item_offer_overlay: Control = %ItemOfferOverlay
 @onready var floating_text_layer: Control = %FloatingTexts
@@ -24,6 +23,8 @@ func _ready() -> void:
 	ability_bar.ability_pressed.connect(_on_ability_pressed)
 	item_offer_overlay.offer_selected.connect(_on_offer_selected)
 	item_offer_overlay.offers_skipped.connect(_on_offers_skipped)
+	game_board.menu_pressed.connect(_on_save_quit_pressed)
+	game_board.stats_pressed.connect(_on_stats_button_pressed)
 	refresh_from_state()
 
 
@@ -61,37 +62,32 @@ func refresh_from_state() -> void:
 
 
 func _update_stats() -> void:
-	var stats = GameState.get_player_stats_snapshot()
+	var stats: Dictionary = GameState.get_player_stats_snapshot()
 	var selected_class = GameState.get_current_class_definition()
-	var class_label = "Adventurer"
+	var class_label := "Adventurer"
+	var class_description := ""
 	if selected_class:
 		class_label = tr(selected_class.display_name)
-	var depth = GameState.get_depth()
-
-	run_info.text = (
-		"Class: %s | HP %d/%d | Armor %d/%d | Atk %d | Gold %d | XP %d | Depth %d"
-		% [
-			class_label,
-			stats.get("hp", 0),
-			stats.get("max_hp", stats.get("maxHp", 0)),
-			stats.get("armor", 0),
-			stats.get("max_armor", stats.get("maxArmor", 0)),
-			stats.get("attack", 0),
-			stats.get("gold", 0),
-			stats.get("xp", 0),
-			depth,
-		]
-	)
-	var xp_progress = GameState.get_xp_progress()
-	var remaining = xp_progress.get("remaining", 0)
-	xp_label.text = (
-		"XP: %d / %d (Need %d more for next level)"
-		% [
-			xp_progress.get("current", 0),
-			xp_progress.get("required", 0),
-			remaining,
-		]
-	)
+		if selected_class.description != "":
+			class_description = tr(selected_class.description)
+	game_board.set_description(class_label, class_description)
+	var depth: int = GameState.get_depth()
+	game_board.set_monster_strength(depth)
+	var gold: int = int(stats.get("gold", 0))
+	var treasure_goal: int = int(stats.get("treasure_goal", 100))
+	game_board.set_coin_state(gold, treasure_goal)
+	var armor: int = int(stats.get("armor", 0))
+	var max_armor: int = int(stats.get("max_armor", stats.get("maxArmor", 0)))
+	game_board.set_shield_stats(armor, max_armor)
+	var attack_value: int = int(stats.get("attack", 0))
+	game_board.set_attack_value(attack_value)
+	var xp_progress: Dictionary = GameState.get_xp_progress()
+	var xp_current: int = int(xp_progress.get("current", 0))
+	var xp_required: int = int(xp_progress.get("required", 1))
+	game_board.set_xp_progress(xp_current, xp_required)
+	var hp: int = int(stats.get("hp", 0))
+	var max_hp: int = int(stats.get("max_hp", stats.get("maxHp", 0)))
+	game_board.set_health(hp, max_hp)
 
 
 func _update_log() -> void:
@@ -192,3 +188,7 @@ func _show_turn_feedback(logs: Array) -> void:
 	floating_text_layer.show_message(sanitized)
 	var stats: Dictionary = GameState.get_player_stats_snapshot()
 	_update_buffs(stats.get("buffs", []))
+
+
+func _on_stats_button_pressed() -> void:
+	log_label.visible = not log_label.visible

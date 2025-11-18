@@ -1,62 +1,55 @@
-
-[
-  {
-    "id": "warrior",
-    "name": "Warrior",
-    "description": "A durable fighter who excels at physical combat and defense.",
-    "icon": "🛡️",
-    "baseStatModifiers": {
-      "maxHp": 20,
-      "maxArmor": 5,
-      "attack": -1
-    },
-    "statGrowth": {
-      "maxHp": 12,
-      "maxArmor": 3,
-      "attack": 1
-    },
-    "startingAbilityIds": ["skull_crusher"],
-    "unlocks": [
-      { "level": 2, "abilityId": "berserk" },
-      { "level": 5, "abilityId": "shield_explosion" }
-    ]
-  },
-  {
-    "id": "mage",
-    "name": "Mage",
-    "description": "A master of arcane arts who manipulates the board and destroys foes from afar.",
-    "icon": "🔮",
-    "baseStatModifiers": {
-      "maxHp": -15,
-      "maxArmor": -5,
-      "attack": 3
-    },
-    "statGrowth": {
-      "maxHp": 8,
-      "maxArmor": 1,
-      "attack": 2
-    },
-    "startingAbilityIds": ["minor_heal"],
-    "unlocks": [
-      { "level": 2, "abilityId": "transmute_skulls" }
-    ]
-  },
-  {
-    "id": "rogue",
-    "name": "Rogue",
-    "description": "An opportunist who focuses on speed, poison, and accumulating wealth.",
-    "icon": "🗡️",
-    "baseStatModifiers": {
-      "maxHp": -5,
-      "maxArmor": 0,
-      "attack": 1
-    },
-    "statGrowth": {
-      "maxHp": 10,
-      "maxArmor": 2,
-      "attack": 1
-    },
-    "startingAbilityIds": ["gold_rush"],
-    "unlocks": []
-  }
-]
+{
+  "classes": [
+    {
+      "id": "adventurer",
+      "name": "Adventurer",
+      "level": 1,
+      "description": "A versatile hero who relies on adaptable tactics to survive the early depths.",
+      "stats": {
+        "Games Played": 0,
+        "Enemies Defeated": 0,
+        "Highest Normal Score": 0,
+        "Highest Hard Score": 0
+      },
+      "level_rewards": [
+        {
+          "level": 1,
+          "summary": "Access to Human race and basic equipment."
+        },
+        {
+          "level": 5,
+          "summary": "Unlocks race selection and perk customization."
+        }
+      ],
+      "perks": [
+        {
+          "name": "Sharp Senses",
+          "summary": "5% of sword tiles count as arrows (match 1 tile away).",
+          "type": "perk"
+        },
+        {
+          "name": "Unsteady Armor",
+          "summary": "-1 base armor at the start of each run.",
+          "type": "flaw"
+        }
+      ],
+      "skills": [
+        {
+          "name": "Arrow Volley",
+          "summary": "Deals light damage to a random enemy."
+        },
+        {
+          "name": "Shield Bash",
+          "summary": "Convert armor into stun damage."
+        },
+        {
+          "name": "Potion Mastery",
+          "summary": "Improves healing from potion matches."
+        }
+      ],
+      "races": [
+        "human"
+      ]
+    }
+  ]
+}

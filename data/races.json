@@ -1,0 +1,54 @@
+{
+  "races": [
+    {
+      "id": "changeling",
+      "name": "Changeling",
+      "context_markdown": "data/context/races/changeling.md"
+    },
+    {
+      "id": "dragonkin",
+      "name": "Dragonkin",
+      "context_markdown": "data/context/races/dragonkin.md"
+    },
+    {
+      "id": "dwarf",
+      "name": "Dwarf",
+      "context_markdown": "data/context/races/dwarf.md"
+    },
+    {
+      "id": "elf",
+      "name": "Elf",
+      "context_markdown": "data/context/races/elf.md"
+    },
+    {
+      "id": "faun",
+      "name": "Faun",
+      "context_markdown": "data/context/races/faun.md"
+    },
+    {
+      "id": "halfling",
+      "name": "Halfling",
+      "context_markdown": "data/context/races/halfling.md"
+    },
+    {
+      "id": "human",
+      "name": "Human",
+      "context_markdown": "data/context/races/human.md"
+    },
+    {
+      "id": "orc",
+      "name": "Orc",
+      "context_markdown": "data/context/races/orc.md"
+    },
+    {
+      "id": "sauren",
+      "name": "Sauren",
+      "context_markdown": "data/context/races/sauren.md"
+    },
+    {
+      "id": "werewolf",
+      "name": "Werewolf",
+      "context_markdown": "data/context/races/werewolf.md"
+    }
+  ]
+}

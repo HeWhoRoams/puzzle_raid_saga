@@ -1,0 +1,290 @@
+{
+  "metadata": {
+    "game": "Dungeon Raid",
+    "type": "Abilities Data",
+    "total_count": 40
+  },
+  "abilities": [
+    {
+      "slug": "banish",
+      "name": "Banish",
+      "cooldown_start": 22,
+      "cooldown_max_level": 12,
+      "description": "Banish kills a special monster on the screen, though it offers no reward."
+    },
+    {
+      "slug": "berserk",
+      "name": "Berserk",
+      "cooldown_start": 14,
+      "cooldown_max_level": 4,
+      "description": "Killing enemies this turn gives health equal to their attacks."
+    },
+    {
+      "slug": "big_game_hunter",
+      "name": "Big Game Hunter",
+      "cooldown_start": 15,
+      "cooldown_max_level": 5,
+      "description": "This skill will convert a random skull anywhere on the board to a random special skull."
+    },
+    {
+      "slug": "boost_armour",
+      "name": "Boost Armour",
+      "cooldown_start": 15,
+      "cooldown_max_level": 5,
+      "description": "Doubles all armor collected for a single turn."
+    },
+    {
+      "slug": "boost_damage",
+      "name": "Boost Damage",
+      "cooldown_start": 15,
+      "cooldown_max_level": 5,
+      "description": "Doubles all sword damage for a single turn."
+    },
+    {
+      "slug": "boost_gold",
+      "name": "Boost Gold",
+      "cooldown_start": 15,
+      "cooldown_max_level": 10,
+      "description": "Doubles all gold collected for a single turn."
+    },
+    {
+      "slug": "boost_health",
+      "name": "Boost Health",
+      "cooldown_start": 15,
+      "cooldown_max_level": 5,
+      "description": "Double all potions collected for a single turn."
+    },
+    {
+      "slug": "charge",
+      "name": "Charge",
+      "cooldown_start": 18,
+      "cooldown_max_level": 8,
+      "description": "Collect all tiles around the edge of board."
+    },
+    {
+      "slug": "counterattack",
+      "name": "Counterattack",
+      "cooldown_start": 19,
+      "cooldown_max_level": 9,
+      "description": "All enemies will attack themselves the next turn."
+    },
+    {
+      "slug": "dazzle",
+      "name": "Dazzle",
+      "cooldown_start": 15,
+      "cooldown_max_level": 5,
+      "description": "Converts all coins to swords."
+    },
+    {
+      "slug": "disarm",
+      "name": "Disarm",
+      "cooldown_start": 15,
+      "cooldown_max_level": 5,
+      "description": "Converts all skulls to swords."
+    },
+    {
+      "slug": "earthquake",
+      "name": "Earthquake",
+      "cooldown_start": 12,
+      "cooldown_max_level": 2,
+      "description": "Randomly rearranges all tiles on the board."
+    },
+    {
+      "slug": "enchant",
+      "name": "Enchant",
+      "cooldown_start": 35,
+      "cooldown_max_level": 25,
+      "description": "Allows the player to instantly upgrade an item."
+    },
+    {
+      "slug": "exorcise",
+      "name": "Exorcise",
+      "cooldown_start": 18,
+      "cooldown_max_level": 8,
+      "description": "Converts a random special skull to a normal skull."
+    },
+    {
+      "slug": "explosive_armour",
+      "name": "Explosive Armour",
+      "cooldown_start": 18,
+      "cooldown_max_level": 8,
+      "description": "Damages every skull on the board equal to how many armour points you currently have."
+    },
+    {
+      "slug": "explosive_potion",
+      "name": "Explosive Potion",
+      "cooldown_start": 18,
+      "cooldown_max_level": 8,
+      "description": "Turns all potions on the screen into exploding potions. Matched explosive potions destroy nearby tiles."
+    },
+    {
+      "slug": "fireball",
+      "name": "Fireball",
+      "cooldown_start": 14,
+      "cooldown_max_level": 4,
+      "description": "Collect a random 3x3 block of tiles."
+    },
+    {
+      "slug": "freeze",
+      "name": "Freeze",
+      "cooldown_start": 18,
+      "cooldown_max_level": 8,
+      "description": "Freezes enemies so they are unable to attack for one turn."
+    },
+    {
+      "slug": "golden_touch",
+      "name": "Golden Touch",
+      "cooldown_start": 15,
+      "cooldown_max_level": 5,
+      "description": "Converts all swords to coins."
+    },
+    {
+      "slug": "greed",
+      "name": "Greed",
+      "cooldown_start": 25,
+      "cooldown_max_level": 15,
+      "description": "Kills any skulls that are next to a coin. Does not work on special skulls."
+    },
+    {
+      "slug": "hack",
+      "name": "Hack",
+      "cooldown_start": 24,
+      "cooldown_max_level": 14,
+      "description": "Replaces a random row with swords."
+    },
+    {
+      "slug": "haste",
+      "name": "Haste",
+      "cooldown_start": 16,
+      "cooldown_max_level": 6,
+      "description": "Creates a chain tile, which allows you to match two different tile types."
+    },
+    {
+      "slug": "heal",
+      "name": "Heal",
+      "cooldown_start": 16,
+      "cooldown_max_level": 6,
+      "description": "Collect all healing potions."
+    },
+    {
+      "slug": "last_stand",
+      "name": "Last Stand",
+      "cooldown_start": 35,
+      "cooldown_max_level": 25,
+      "description": "Refill health completely if you are killed this turn."
+    },
+    {
+      "slug": "magic_sword",
+      "name": "Magic Sword",
+      "cooldown_start": 14,
+      "cooldown_max_level": 4,
+      "description": "Converts one random sword into a magic sword tile, which does 5 times the damage of a regular sword."
+    },
+    {
+      "slug": "mana_potion",
+      "name": "Mana Potion",
+      "cooldown_start": 20,
+      "cooldown_max_level": 10,
+      "description": "Turns all potions on the screen into mana potions. Matched mana potions reduce ability cooldowns."
+    },
+    {
+      "slug": "masochism",
+      "name": "Masochism",
+      "cooldown_start": 15,
+      "cooldown_max_level": 5,
+      "description": "Converts all coins to skulls. This ability can create special skulls as well."
+    },
+    {
+      "slug": "repair",
+      "name": "Repair",
+      "cooldown_start": 17,
+      "cooldown_max_level": 7,
+      "description": "Collect all shields."
+    },
+    {
+      "slug": "rune",
+      "name": "Rune",
+      "cooldown_start": 12,
+      "cooldown_max_level": 2,
+      "description": "If you trace a closed path this turn, collect all tiles inside it."
+    },
+    {
+      "slug": "scavenge",
+      "name": "Scavenge",
+      "cooldown_start": 15,
+      "cooldown_max_level": 5,
+      "description": "Convert all swords to shields."
+    },
+    {
+      "slug": "shatter",
+      "name": "Shatter",
+      "cooldown_start": 14,
+      "cooldown_max_level": 4,
+      "description": "Destroy all enemies' defense."
+    },
+    {
+      "slug": "skill_elixir",
+      "name": "Skill Elixir",
+      "cooldown_start": 18,
+      "cooldown_max_level": 8,
+      "description": "Collect all healing potions as XP."
+    },
+    {
+      "slug": "slash",
+      "name": "Slash",
+      "cooldown_start": 12,
+      "cooldown_max_level": 2,
+      "description": "Collect a random row of tiles."
+    },
+    {
+      "slug": "steal",
+      "name": "Steal",
+      "cooldown_start": 13,
+      "cooldown_max_level": 3,
+      "description": "Attacking enemies gives gold for a single turn."
+    },
+    {
+      "slug": "teleport",
+      "name": "Teleport",
+      "cooldown_start": 20,
+      "cooldown_max_level": 10,
+      "description": "Replaces the current board with all new tiles with no skulls."
+    },
+    {
+      "slug": "trap",
+      "name": "Trap",
+      "cooldown_start": 20,
+      "cooldown_max_level": 10,
+      "description": "All new monsters added to the board that turn are created with 1 HP."
+    },
+    {
+      "slug": "treasure",
+      "name": "Treasure",
+      "cooldown_start": 18,
+      "cooldown_max_level": 8,
+      "description": "Collect all coins."
+    },
+    {
+      "slug": "treasure_chamber",
+      "name": "Treasure Chamber",
+      "cooldown_start": 25,
+      "cooldown_max_level": 15,
+      "description": "All new tiles added to the board that turn are coins. Does not stack with teleport or hack & slash."
+    },
+    {
+      "slug": "volley",
+      "name": "Volley",
+      "cooldown_start": 15,
+      "cooldown_max_level": 5,
+      "description": "Converts all swords to arrows. Arrows can match enemies 1 tile away."
+    },
+    {
+      "slug": "wish",
+      "name": "Wish",
+      "cooldown_start": -1,
+      "cooldown_max_level": -1,
+      "description": "Collects all tiles on the board. This is a single use skill.",
+      "special_properties": ["single_use"]
+    }
+  ]
+}

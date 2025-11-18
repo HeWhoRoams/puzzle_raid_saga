@@ -1,0 +1,19 @@
+{
+  "races": [
+    {
+      "id": "human",
+      "name": "Human",
+      "description": "Reliable and adaptable. Humans can wield any weapon they find and level faster than other races.",
+      "traits": [
+        {
+          "name": "Versatile Bonus",
+          "summary": "Gain +5% experience from every battle."
+        },
+        {
+          "name": "Stubborn Will",
+          "summary": "When reduced below 10 HP, heal for 5 HP once per run."
+        }
+      ]
+    }
+  ]
+}

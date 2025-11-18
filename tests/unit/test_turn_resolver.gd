@@ -31,9 +31,7 @@ func _test_sword_damage_distribution() -> void:
 		[{"type": "SWORD"}, {"type": "SKULL", "hp": 15, "enemy_id": "goblin_01"}],
 	]
 	var path := [Vector2i(0, 0), Vector2i(1, 0)]
-	var result := TurnResolver.resolve_player_action(
-		board, stats, stats, path, GameState.get_config()
-	)
+	var result := TurnResolver.resolve_player_action(board, stats, path)
 	assert(result.defeated_enemies.size() == 1)
 
 
@@ -57,9 +55,7 @@ func _test_buff_consumption() -> void:
 		[{"type": "SWORD"}, {"type": "SWORD"}],
 	]
 	var path := [Vector2i(0, 0), Vector2i(1, 0)]
-	var result := TurnResolver.resolve_player_action(
-		board, stats, stats, path, GameState.get_config()
-	)
+	var result := TurnResolver.resolve_player_action(board, stats, path)
 	assert(result.player_stats.buffs.is_empty())
 
 

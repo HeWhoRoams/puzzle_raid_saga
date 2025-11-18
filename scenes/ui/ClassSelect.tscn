@@ -1,0 +1,70 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/screens/class_select.gd" id="1_0p1e3"]
+[ext_resource type="PackedScene" path="res://scenes/ui/ClassCard.tscn" id="2_jn2ud"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3vn5m"]
+bg_color = Color(0.0705882, 0.054902, 0.113725, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="ClassSelect" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0p1e3")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+
+[node name="TitleLabel" type="Label" parent="Layout"]
+text = "Choose Your Class"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 28
+
+[node name="ClassGridPanel" type="Panel" parent="Layout"]
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_3vn5m")
+
+[node name="ClassGridMargin" type="MarginContainer" parent="Layout/ClassGridPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="ClassGrid" type="GridContainer" parent="Layout/ClassGridPanel/ClassGridMargin"]
+unique_name_in_owner = true
+columns = 3
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+
+[node name="BottomButtons" type="HBoxContainer" parent="Layout"]
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="BackButton" type="Button" parent="Layout/BottomButtons"]
+unique_name_in_owner = true
+text = "Back"
+size_flags_horizontal = 1
+
+[node name="StartRunButton" type="Button" parent="Layout/BottomButtons"]
+unique_name_in_owner = true
+text = "Start Run"
+disabled = true
+size_flags_horizontal = 1
+
+[node name="ClassCardPlaceholder" parent="Layout/ClassGridPanel/ClassGridMargin/ClassGrid" instance=ExtResource("2_jn2ud")]
+visible = false

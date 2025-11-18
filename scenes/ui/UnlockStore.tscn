@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/screens/unlock_store.gd" id="1_2a4yy"]
+
+[node name="UnlockStore" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2a4yy")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+
+[node name="TitleLabel" type="Label" parent="Layout"]
+text = "Unlock Full Game"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 32
+
+[node name="FeaturesPanel" type="Panel" parent="Layout"]
+
+[node name="FeaturesList" type="VBoxContainer" parent="Layout/FeaturesPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="Feature1" type="Label" parent="Layout/FeaturesPanel/FeaturesList"]
+text = "3 Extra Classes"
+
+[node name="Feature2" type="Label" parent="Layout/FeaturesPanel/FeaturesList"]
+text = "15+ Relics"
+
+[node name="Feature3" type="Label" parent="Layout/FeaturesPanel/FeaturesList"]
+text = "Endless Mode"
+
+[node name="Feature4" type="Label" parent="Layout/FeaturesPanel/FeaturesList"]
+text = "Hard Mode Variants"
+
+[node name="Feature5" type="Label" parent="Layout/FeaturesPanel/FeaturesList"]
+text = "Cosmetic Sets Included"
+
+[node name="Feature6" type="Label" parent="Layout/FeaturesPanel/FeaturesList"]
+text = "Future Updates Included"
+
+[node name="PurchaseButton" type="Button" parent="Layout"]
+unique_name_in_owner = true
+text = "Unlock – $4.99"
+size_flags_horizontal = 3
+
+[node name="BackButton" type="Button" parent="Layout"]
+unique_name_in_owner = true
+text = "Back"
+size_flags_horizontal = 3

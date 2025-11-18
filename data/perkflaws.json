@@ -1,0 +1,103 @@
+{
+  "classes": [
+    {
+      "id": "assassin",
+      "perk": {
+        "name": "Cunning",
+        "description": "Reduces cooldown by 1 for the fourth skill chosen."
+      },
+      "flaw": {
+        "name": "Sneaky",
+        "description": "All enemies gain +1 health."
+      }
+    },
+    {
+      "id": "barbarian",
+      "perk": {
+        "name": "Strong",
+        "description": "+1 base damage."
+      },
+      "flaw": {
+        "name": "Reckless",
+        "description": "-10% bonus shield chance."
+      }
+    },
+    {
+      "id": "mage",
+      "perk": {
+        "name": "Gifted",
+        "description": "5% of potions spawn as mana potions. Mana potions reduce a cooling skill by 1."
+      },
+      "flaw": {
+        "name": "Frail",
+        "description": "-10 maximum health."
+      }
+    },
+    {
+      "id": "paladin",
+      "perk": {
+        "name": "Intimidating",
+        "description": "Mortal enemy encounters occur 50% less often."
+      },
+      "flaw": {
+        "name": "Zealous",
+        "description": "Special skulls arrive 1 turn sooner than usual."
+      }
+    },
+    {
+      "id": "priest",
+      "perk": {
+        "name": "Faithful",
+        "description": "Regeneration upgrades have double effect."
+      },
+      "flaw": {
+        "name": "Cautious",
+        "description": "-20% armor piercing."
+      }
+    },
+    {
+      "id": "raider",
+      "perk": {
+        "name": "Daring",
+        "description": "100% bonus chance when tracing paths of 10+ tiles."
+      },
+      "flaw": {
+        "name": "Cocky",
+        "description": "Matching only 3 tiles yields no reward."
+      }
+    },
+    {
+      "id": "ranger",
+      "perk": {
+        "name": "Agile",
+        "description": "5% of swords spawn as arrows that can match enemies one tile away."
+      },
+      "flaw": {
+        "name": "Slim",
+        "description": "-1 armor."
+      }
+    },
+    {
+      "id": "rogue",
+      "perk": {
+        "name": "Frugal",
+        "description": "+10% chance to earn bonus gold."
+      },
+      "flaw": {
+        "name": "Clumsy",
+        "description": "3% of shields spawn broken and provide no defense."
+      }
+    },
+    {
+      "id": "warrior",
+      "perk": {
+        "name": "Tough",
+        "description": "+10 maximum health."
+      },
+      "flaw": {
+        "name": "Noisy",
+        "description": "Special skulls spawn with +5% health."
+      }
+    }
+  ]
+}

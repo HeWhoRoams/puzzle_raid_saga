@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/screens/run_summary.gd" id="1_1ukcl"]
+
+[node name="RunSummary" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1ukcl")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+
+[node name="TitleLabel" type="Label" parent="Layout"]
+text = "Run Summary"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 28
+
+[node name="StatsPanel" type="Panel" parent="Layout"]
+
+[node name="StatsVBox" type="VBoxContainer" parent="Layout/StatsPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="DepthLabel" type="Label" parent="Layout/StatsPanel/StatsVBox"]
+unique_name_in_owner = true
+text = "Depth Reached: 0"
+
+[node name="GoldLabel" type="Label" parent="Layout/StatsPanel/StatsVBox"]
+unique_name_in_owner = true
+text = "Gold Collected: 0"
+
+[node name="EnemiesLabel" type="Label" parent="Layout/StatsPanel/StatsVBox"]
+unique_name_in_owner = true
+text = "Enemies Defeated: 0"
+
+[node name="UnlocksLabel" type="Label" parent="Layout/StatsPanel/StatsVBox"]
+unique_name_in_owner = true
+text = "Unlocks: None"
+
+[node name="Buttons" type="HBoxContainer" parent="Layout"]
+alignment = 1
+theme_override_constants/separation = 16
+
+[node name="RetryButton" type="Button" parent="Layout/Buttons"]
+unique_name_in_owner = true
+text = "Retry"
+size_flags_horizontal = 1
+
+[node name="ClassSelectButton" type="Button" parent="Layout/Buttons"]
+unique_name_in_owner = true
+text = "Class Select"
+size_flags_horizontal = 1

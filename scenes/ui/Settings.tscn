@@ -1,0 +1,83 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/screens/settings.gd" id="1_4e7kx"]
+
+[node name="Settings" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4e7kx")
+
+[node name="Layout" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+
+[node name="TitleLabel" type="Label" parent="Layout"]
+text = "Settings"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 28
+
+[node name="AudioPanel" type="PanelContainer" parent="Layout"]
+size_flags_horizontal = 3
+
+[node name="AudioVBox" type="VBoxContainer" parent="Layout/AudioPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="MusicVolume" type="HBoxContainer" parent="Layout/AudioPanel/AudioVBox"]
+theme_override_constants/separation = 12
+
+[node name="MusicLabel" type="Label" parent="Layout/AudioPanel/AudioVBox/MusicVolume"]
+text = "Music Volume"
+size_flags_horizontal = 1
+
+[node name="MusicSlider" type="HSlider" parent="Layout/AudioPanel/AudioVBox/MusicVolume"]
+unique_name_in_owner = true
+size_flags_horizontal = 3
+max_value = 1.0
+value = 0.5
+
+[node name="SFXVolume" type="HBoxContainer" parent="Layout/AudioPanel/AudioVBox"]
+theme_override_constants/separation = 12
+
+[node name="SFXLabel" type="Label" parent="Layout/AudioPanel/AudioVBox/SFXVolume"]
+text = "SFX Volume"
+size_flags_horizontal = 1
+
+[node name="SFXSlider" type="HSlider" parent="Layout/AudioPanel/AudioVBox/SFXVolume"]
+unique_name_in_owner = true
+size_flags_horizontal = 3
+max_value = 1.0
+value = 0.5
+
+[node name="GameplayPanel" type="PanelContainer" parent="Layout"]
+size_flags_horizontal = 3
+
+[node name="GameplayVBox" type="VBoxContainer" parent="Layout/GameplayPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="VibrationToggle" type="CheckBox" parent="Layout/GameplayPanel/GameplayVBox"]
+unique_name_in_owner = true
+text = "Enable Vibration"
+button_pressed = true
+
+[node name="HintToggle" type="CheckBox" parent="Layout/GameplayPanel/GameplayVBox"]
+unique_name_in_owner = true
+text = "Show Hints"
+button_pressed = true
+
+[node name="CloseButton" type="Button" parent="Layout"]
+unique_name_in_owner = true
+text = "Close"
+size_flags_horizontal = 1

@@ -1,0 +1,208 @@
+{
+  "enemies": [
+    {
+      "id": "acidic",
+      "name": "Acidic",
+      "description": "Each turn converts a healing potion into acid, which damages you when collected.",
+      "context_markdown": "data/context/enemies/acidic.md"
+    },
+    {
+      "id": "alchemist",
+      "name": "Alchemist",
+      "description": "Converts two tiles into something else each turn.",
+      "context_markdown": "data/context/enemies/alchemist.md"
+    },
+    {
+      "id": "alpha",
+      "name": "Alpha",
+      "description": "Pulls nearby skulls into the tiles around itself each turn.",
+      "context_markdown": "data/context/enemies/alpha.md"
+    },
+    {
+      "id": "armoured",
+      "name": "Armoured",
+      "description": "Can only be damaged if the path reaches one of the three squares above it.",
+      "context_markdown": "data/context/enemies/armoured.md"
+    },
+    {
+      "id": "assassin",
+      "name": "Assassin",
+      "description": "Deals double attack damage each turn when on the bottom row.",
+      "mortal_enemy_race": "faun",
+      "mortal_enemy_effect": "Automatically moves down one tile each turn.",
+      "context_markdown": "data/context/enemies/assassin.md"
+    },
+    {
+      "id": "boss",
+      "name": "Boss",
+      "description": "A standard skull with much higher stats.",
+      "context_markdown": "data/context/enemies/boss.md"
+    },
+    {
+      "id": "brute",
+      "name": "Brute",
+      "description": "Throws a regular skull at you each turn, damaging you by that skull’s health.",
+      "context_markdown": "data/context/enemies/brute.md"
+    },
+    {
+      "id": "chaotic",
+      "name": "Chaotic",
+      "description": "Jumps to a random tile each turn, destroying whatever it lands on.",
+      "mortal_enemy_race": "dwarf",
+      "mortal_enemy_effect": "Can only be damaged by uppercuts.",
+      "context_markdown": "data/context/enemies/chaotic.md"
+    },
+    {
+      "id": "corrosive",
+      "name": "Corrosive",
+      "description": "Prevents armor repair while alive.",
+      "mortal_enemy_race": "orc",
+      "mortal_enemy_effect": "Reduces your defense to 0 when it appears.",
+      "context_markdown": "data/context/enemies/corrosive.md"
+    },
+    {
+      "id": "devourer",
+      "name": "Devourer",
+      "description": "Destroys a random upgrade every four turns.",
+      "context_markdown": "data/context/enemies/devourer.md"
+    },
+    {
+      "id": "doppelganger",
+      "name": "Doppelganger",
+      "description": "Matches your current defense value each turn.",
+      "context_markdown": "data/context/enemies/doppelganger.md"
+    },
+    {
+      "id": "flaming",
+      "name": "Flaming",
+      "description": "Ignites all surrounding tiles; burning tiles damage you when matched.",
+      "context_markdown": "data/context/enemies/flaming.md"
+    },
+    {
+      "id": "fleeing",
+      "name": "Fleeing",
+      "description": "Moves up one tile every turn and deals damage whenever pushed down.",
+      "context_markdown": "data/context/enemies/fleeing.md"
+    },
+    {
+      "id": "freezing",
+      "name": "Freezing",
+      "description": "Freezes two random tiles each turn; frozen tiles cannot be matched.",
+      "mortal_enemy_race": "dragonkin",
+      "mortal_enemy_effect": "Halves your base damage while it lives.",
+      "context_markdown": "data/context/enemies/freezing.md"
+    },
+    {
+      "id": "golden",
+      "name": "Golden",
+      "description": "Defeat before its countdown ends to gain ~40 gold; otherwise it vanishes.",
+      "context_markdown": "data/context/enemies/golden.md"
+    },
+    {
+      "id": "greasy",
+      "name": "Greasy",
+      "description": "Shifts all other skulls down one row each turn.",
+      "context_markdown": "data/context/enemies/greasy.md"
+    },
+    {
+      "id": "kamikaze",
+      "name": "Kamikaze",
+      "description": "Explodes when its timer ends, dealing half your health as damage.",
+      "context_markdown": "data/context/enemies/kamikaze.md"
+    },
+    {
+      "id": "invisible",
+      "name": "Invisible",
+      "description": "Has high defense but low health; poison is especially effective.",
+      "mortal_enemy_race": "halfling",
+      "mortal_enemy_effect": "Other skulls spawn with double armor.",
+      "context_markdown": "data/context/enemies/invisible.md"
+    },
+    {
+      "id": "mage",
+      "name": "Mage",
+      "description": "Prevents skill cooldowns from recharging naturally.",
+      "context_markdown": "data/context/enemies/mage.md"
+    },
+    {
+      "id": "magnetic",
+      "name": "Magnetic",
+      "description": "Pulls swords and shields into adjacent tiles each turn.",
+      "context_markdown": "data/context/enemies/magnetic.md"
+    },
+    {
+      "id": "meat_shield",
+      "name": "Meat Shield",
+      "description": "Redirects all damage from other skulls to itself while alive.",
+      "context_markdown": "data/context/enemies/meat_shield.md"
+    },
+    {
+      "id": "lich",
+      "name": "Lich",
+      "description": "Transforms into a phylactery when killed; match coins on it or it revives.",
+      "context_markdown": "data/context/enemies/lich.md"
+    },
+    {
+      "id": "overseer",
+      "name": "Overseer",
+      "description": "Converts one sword into a skull each turn.",
+      "context_markdown": "data/context/enemies/overseer.md"
+    },
+    {
+      "id": "poisonous",
+      "name": "Poisonous",
+      "description": "Poison persists while this skull lives; extra poison applied by enemy attacks.",
+      "mortal_enemy_race": "elf",
+      "mortal_enemy_effect": "Prevents poison removal while alive.",
+      "context_markdown": "data/context/enemies/poisonous.md"
+    },
+    {
+      "id": "regular",
+      "name": "Regular",
+      "description": "The common foe encountered throughout the dungeon.",
+      "context_markdown": "data/context/enemies/regular.md"
+    },
+    {
+      "id": "spiked",
+      "name": "Spiked",
+      "description": "Reflects the full amount of damage you deal to it.",
+      "context_markdown": "data/context/enemies/spiked.md"
+    },
+    {
+      "id": "thief",
+      "name": "Thief",
+      "description": "Steals coin tiles each turn or gold directly from your inventory.",
+      "mortal_enemy_race": "sauren",
+      "mortal_enemy_effect": "Deals double attack damage when stealing gold.",
+      "context_markdown": "data/context/enemies/thief.md"
+    },
+    {
+      "id": "trampling",
+      "name": "Trampling",
+      "description": "Breaks a random sword or shield each turn, nullifying broken tiles.",
+      "context_markdown": "data/context/enemies/trampling.md"
+    },
+    {
+      "id": "unstable",
+      "name": "Unstable",
+      "description": "Replaces all tiles with new ones when its timer expires.",
+      "mortal_enemy_race": "changeling",
+      "mortal_enemy_effect": "New tiles include skulls and exclude swords.",
+      "context_markdown": "data/context/enemies/unstable.md"
+    },
+    {
+      "id": "vampire",
+      "name": "Vampire",
+      "description": "Heals itself for its attack value whenever it hits you.",
+      "mortal_enemy_race": "werewolf",
+      "mortal_enemy_effect": "Can exceed its maximum health.",
+      "context_markdown": "data/context/enemies/vampire.md"
+    },
+    {
+      "id": "vengeful",
+      "name": "Vengeful",
+      "description": "Gains 1 attack each time you kill another enemy.",
+      "context_markdown": "data/context/enemies/vengeful.md"
+    }
+  ]
+}
