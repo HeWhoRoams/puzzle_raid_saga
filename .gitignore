@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 
+archive/react_legacy/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
