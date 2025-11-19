@@ -20,6 +20,11 @@ var relic_definitions: Dictionary = {}
 var board_modifier_definitions: Dictionary = {}
 var enemy_action_definitions: Dictionary = {}
 
+var _config_resource = null
+var _initialized: bool = false
+var _current_board: Array = []
+var _player_class_id: String = ""
+
 
 func _ready() -> void:
 	_load_class_json()
@@ -28,6 +33,7 @@ func _ready() -> void:
 	_load_board_modifier_json()
 	_load_enemy_actions_json()
 	load_state()
+	_load_game_config()
 
 
 func load_state() -> void:
@@ -127,6 +133,77 @@ func get_board_modifier_definition(modifier_id: String) -> Dictionary:
 
 func get_enemy_action_definition(action_id: String) -> Dictionary:
 	return enemy_action_definitions.get(action_id, {}).duplicate(true)
+
+
+func _load_game_config() -> void:
+	var cfg := load("res://resources/game_config.tres")
+	if cfg:
+		_config_resource = cfg
+	else:
+		push_warning("GameState: game_config.tres not found; get_config() will return a minimal stub.")
+
+
+func ensure_initialized() -> void:
+	if _initialized:
+		return
+	if _config_resource:
+		ContentDB.load_from_resource(_config_resource)
+		BoardService.configure(_config_resource)
+		TurnResolver.configure(_config_resource)
+	else:
+		push_warning("GameState: ensure_initialized called but no config resource loaded.")
+	_initialized = true
+
+
+func get_config() -> Variant:
+	return _config_resource if _config_resource else {
+		"classes": [],
+		"min_path_length": 3,
+		"board_size": 6,
+	}
+
+
+func start_new_run(class_id: String) -> void:
+	_player_class_id = class_id
+	if _config_resource:
+		BoardService.regenerate_board(1)
+		_current_board = BoardService.get_board()
+
+
+func get_player_abilities() -> Array:
+	return []
+
+
+func activate_ability(ability_id: String) -> void:
+	# Minimal stub; abilities are not required for smoke tests
+	return
+
+
+func suspend_run_to_menu() -> void:
+	# Minimal stub used by smoke tests
+	return
+
+
+func get_board_snapshot() -> Array:
+	return BoardService.get_board()
+
+
+func resolve_path(path: Array) -> Dictionary:
+	# Minimal local resolver for smoke tests: validate path, remove tiles, apply gravity/refill.
+	var board := BoardService.get_board()
+	var cfg: Variant = get_config()
+	var minlen: int = 3
+	if typeof(cfg) == TYPE_DICTIONARY:
+		minlen = int(cfg.get("min_path_length", 3))
+	var validation := BoardService.validate_path(board, path, minlen)
+	if not validation.get("valid", false):
+		return {"success": false}
+
+	# Remove tiles in path
+	BoardService.remove_tiles(board, path)
+	var new_board := BoardService.apply_gravity_and_refill(board, BoardService.get_depth())
+	BoardService.set_board(new_board, BoardService.get_depth())
+	return {"success": true}
 
 
 func _merge_defaults(defaults: Dictionary, loaded: Dictionary) -> void:

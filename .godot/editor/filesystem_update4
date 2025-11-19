@@ -1,0 +1,10 @@
+res://autoload/GameState.gd
+res://scenes/gameplay/BoardView.tscn
+res://scenes/gameplay/TileView.tscn
+res://scenes/ui/AbilityBar.tscn
+res://scenes/ui/GameBoard.tscn
+res://scripts/ui/gameplay/ability_bar.gd
+res://scripts/ui/gameplay/board_view.gd
+res://scripts/ui/gameplay/game_board.gd
+res://scripts/ui/gameplay/tile_view.gd
+res://scripts/ui/screens/main_menu.gd
