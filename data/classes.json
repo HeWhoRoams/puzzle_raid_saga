@@ -1,54 +1,46 @@
 {
-  "classes": [
-    {
-      "id": "adventurer",
-      "name": "Adventurer",
-      "context_markdown": "data/context/classes/adventurer.md"
-    },
-    {
-      "id": "assassin",
-      "name": "Assassin",
-      "context_markdown": "data/context/classes/assassin.md"
-    },
-    {
-      "id": "barbarian",
-      "name": "Barbarian",
-      "context_markdown": "data/context/classes/barbarian.md"
-    },
-    {
-      "id": "mage",
-      "name": "Mage",
-      "context_markdown": "data/context/classes/mage.md"
-    },
-    {
-      "id": "paladin",
-      "name": "Paladin",
-      "context_markdown": "data/context/classes/paladin.md"
-    },
-    {
-      "id": "priest",
-      "name": "Priest",
-      "context_markdown": "data/context/classes/priest.md"
-    },
-    {
-      "id": "raider",
-      "name": "Raider",
-      "context_markdown": "data/context/classes/raider.md"
-    },
-    {
-      "id": "ranger",
-      "name": "Ranger",
-      "context_markdown": "data/context/classes/ranger.md"
-    },
-    {
-      "id": "rogue",
-      "name": "Rogue",
-      "context_markdown": "data/context/classes/rogue.md"
-    },
-    {
-      "id": "warrior",
-      "name": "Warrior",
-      "context_markdown": "data/context/classes/warrior.md"
-    }
-  ]
+	"warrior": {
+		"id": "warrior",
+		"name": "Warrior",
+		"description": "Balanced fighter with steady armor.",
+		"base_hp": 40,
+		"base_atk": 4,
+		"base_armor": 2,
+		"abilities": ["smite", "armor_up"],
+		"starting_relics": [],
+		"unlock_cost": 0
+	},
+	"thief": {
+		"id": "thief",
+		"name": "Thief",
+		"description": "Low HP, high attack, extra coin gain.",
+		"base_hp": 30,
+		"base_atk": 6,
+		"base_armor": 0,
+		"abilities": ["smite", "cleanse"],
+		"starting_relics": [],
+		"unlock_cost": 100
+	},
+	"mage": {
+		"id": "mage",
+		"name": "Mage",
+		"description": "Fragile but powerful abilities and fast XP.",
+		"base_hp": 28,
+		"base_atk": 3,
+		"base_armor": 0,
+		"abilities": ["heal", "cleanse"],
+		"starting_relics": [],
+		"unlock_cost": 200
+	},
+	"paladin": {
+		"id": "paladin",
+		"name": "Paladin",
+		"description": "High armor and healing focus.",
+		"base_hp": 45,
+		"base_atk": 3,
+		"base_armor": 4,
+		"abilities": ["heal", "armor_up"],
+		"starting_relics": [],
+		"unlock_cost": 300
+	}
 }

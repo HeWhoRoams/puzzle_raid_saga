@@ -51,16 +51,7 @@ size_flags_vertical = 3
 theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 16
 
-[node name="BottomButtons" type="HBoxContainer" parent="Layout"]
-theme_override_constants/separation = 20
-alignment = 1
-
-[node name="BackButton" type="Button" parent="Layout/BottomButtons"]
-unique_name_in_owner = true
-text = "Back"
-size_flags_horizontal = 1
-
-[node name="StartRunButton" type="Button" parent="Layout/BottomButtons"]
+[node name="StartRunButton" type="Button" parent="Layout"]
 unique_name_in_owner = true
 text = "Start Run"
 disabled = true

@@ -1,6 +1,30 @@
-[gd_scene load_steps=2 format=3 uid="uid://ability_bar"]
+[gd_scene load_steps=10 format=3 uid="uid://ability_bar"]
 
 [ext_resource type="Script" path="res://scripts/ui/gameplay/ability_bar.gd" id="1_wmff2"]
+
+[sub_resource type="Shortcut" id="Shortcut_ability1"]
+events = [SubResource("InputEventKey_1")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_1"]
+keycode = 49
+
+[sub_resource type="Shortcut" id="Shortcut_ability2"]
+events = [SubResource("InputEventKey_2")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_2"]
+keycode = 50
+
+[sub_resource type="Shortcut" id="Shortcut_ability3"]
+events = [SubResource("InputEventKey_3")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_3"]
+keycode = 51
+
+[sub_resource type="Shortcut" id="Shortcut_ability4"]
+events = [SubResource("InputEventKey_4")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_4"]
+keycode = 52
 
 [node name="AbilityBar" type="HBoxContainer"]
 anchors_preset = 15
@@ -9,3 +33,31 @@ anchor_bottom = 0.0
 grow_horizontal = 2
 theme_override_constants/separation = 8
 script = ExtResource("1_wmff2")
+
+[node name="AbilityButton1" type="Button" parent="AbilityBar"]
+unique_name_in_owner = true
+text = "A1"
+size_flags_horizontal = 3
+shortcut = SubResource("Shortcut_ability1")
+hint_tooltip = "Ability 1"
+
+[node name="AbilityButton2" type="Button" parent="AbilityBar"]
+unique_name_in_owner = true
+text = "A2"
+size_flags_horizontal = 3
+shortcut = SubResource("Shortcut_ability2")
+hint_tooltip = "Ability 2"
+
+[node name="AbilityButton3" type="Button" parent="AbilityBar"]
+unique_name_in_owner = true
+text = "A3"
+size_flags_horizontal = 3
+shortcut = SubResource("Shortcut_ability3")
+hint_tooltip = "Ability 3"
+
+[node name="AbilityButton4" type="Button" parent="AbilityBar"]
+unique_name_in_owner = true
+text = "A4"
+size_flags_horizontal = 3
+shortcut = SubResource("Shortcut_ability4")
+hint_tooltip = "Ability 4"

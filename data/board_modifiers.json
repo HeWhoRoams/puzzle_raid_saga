@@ -1,0 +1,37 @@
+{
+	"cursed_floor": {
+		"label": "Cursed Floor",
+		"description": "All healing is reduced by 50%.",
+		"effects": [
+			{ "trigger": "on_heal", "type": "multiply_heal", "factor": 0.5 }
+		]
+	},
+	"blood_mist": {
+		"label": "Blood Mist",
+		"description": "Enemies deal +2 bonus damage.",
+		"effects": [
+			{ "trigger": "enemy_turn", "type": "add_enemy_damage", "amount": 2 }
+		]
+	},
+	"heavy_gravity": {
+		"label": "Heavy Gravity",
+		"description": "Lose 1 armor at the start of each turn.",
+		"effects": [
+			{ "trigger": "start_turn", "type": "subtract_armor", "amount": 1 }
+		]
+	},
+	"corrupted_growth": {
+		"label": "Corrupted Growth",
+		"description": "Mask tiles spawn twice as often.",
+		"effects": [
+			{ "trigger": "tile_generation", "type": "modify_spawn_rate", "tile": "MASK", "multiplier": 2.0 }
+		]
+	},
+	"golden_touch": {
+		"label": "Golden Touch",
+		"description": "Coin matches give +2 extra gold.",
+		"effects": [
+			{ "trigger": "on_coin_gain", "type": "modify_coin_gain", "amount": 2 }
+		]
+	}
+}

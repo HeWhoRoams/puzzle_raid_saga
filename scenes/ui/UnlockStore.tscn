@@ -50,10 +50,11 @@ text = "Future Updates Included"
 
 [node name="PurchaseButton" type="Button" parent="Layout"]
 unique_name_in_owner = true
-text = "Unlock – $4.99"
+text = "Unlock - $4.99"
 size_flags_horizontal = 3
 
 [node name="BackButton" type="Button" parent="Layout"]
 unique_name_in_owner = true
 text = "Back"
 size_flags_horizontal = 3
+

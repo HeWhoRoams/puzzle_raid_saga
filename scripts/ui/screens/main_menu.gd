@@ -1,8 +1,8 @@
 extends Control
 
-signal new_game_pressed
-signal continue_pressed
-signal scores_pressed
+signal play_pressed
+signal settings_pressed
+signal unlock_store_pressed
 
 var _background_texture: Texture2D
 
@@ -14,28 +14,41 @@ var _background_texture: Texture2D
 		return _background_texture
 
 @onready var _background: TextureRect = %Background
-@onready var _new_game_button: Button = %NewGameButton
-@onready var _continue_button: Button = %ContinueButton
-@onready var _scores_button: Button = %ScoresButton
+@onready var _play_button: Button = %PlayButton
+@onready var _settings_button: Button = %SettingsButton
+@onready var _unlock_button: Button = %UnlockButton
 
 
 func _ready() -> void:
 	_update_background_texture()
-	_new_game_button.pressed.connect(func():
-		new_game_pressed.emit()
-	)
-	_continue_button.pressed.connect(func():
-		continue_pressed.emit()
-	)
-	_scores_button.pressed.connect(func():
-		scores_pressed.emit()
-	)
+	_play_button.pressed.connect(_on_play_pressed)
+	_settings_button.pressed.connect(_on_settings_pressed)
+	_unlock_button.pressed.connect(_on_unlock_pressed)
 
 
-func set_continue_enabled(enabled: bool) -> void:
-	_continue_button.disabled = not enabled
+func _receive_data(_data := {}) -> void:
+	pass
 
 
 func _update_background_texture() -> void:
 	if is_instance_valid(_background):
 		_background.texture = _background_texture
+
+
+func _on_play_pressed() -> void:
+	play_pressed.emit()
+	SceneManager.change_scene(SceneManager.SCENE_CLASS_SELECT)
+
+
+func _on_settings_pressed() -> void:
+	settings_pressed.emit()
+	SceneManager.change_scene(
+		SceneManager.SCENE_SETTINGS, {"return_scene": SceneManager.SCENE_MAIN_MENU}
+	)
+
+
+func _on_unlock_pressed() -> void:
+	unlock_store_pressed.emit()
+	SceneManager.change_scene(
+		SceneManager.SCENE_UNLOCK_STORE, {"return_scene": SceneManager.SCENE_MAIN_MENU}
+	)

@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "patternProperties": {
+    ".*": {
+      "type": "object",
+      "required": ["label", "description", "effects"],
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["type"],
+            "oneOf": [
+              {
+                "properties": {
+                  "type": {
+                    "const": "deal_damage"
+                  },
+                  "amount": {
+                    "type": ["number", "string"]
+                  }
+                },
+                "required": ["amount"],
+                "additionalProperties": false
+              },
+              {
+                "properties": {
+                  "type": {
+                    "const": "gain_armor"
+                  },
+                  "amount": {
+                    "type": "number"
+                  }
+                },
+                "required": ["amount"],
+                "additionalProperties": false
+              },
+              {
+                "properties": {
+                  "type": {
+                    "const": "apply_status"
+                  },
+                  "target": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "amount": {
+                    "type": "number"
+                  },
+                  "duration": {
+                    "type": "number"
+                  }
+                },
+                "required": ["target", "status", "amount", "duration"],
+                "additionalProperties": false
+              },
+              {
+                "properties": {
+                  "type": {
+                    "const": "heal_enemy"
+                  },
+                  "amount": {
+                    "type": "number"
+                  }
+                },
+                "required": ["amount"],
+                "additionalProperties": false
+              }
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

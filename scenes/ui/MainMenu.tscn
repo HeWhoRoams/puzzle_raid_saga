@@ -52,20 +52,20 @@ theme_override_font_sizes/font_size = 42
 text = "Puzzle Raid"
 horizontal_alignment = 1
 
-[node name="NewGameButton" type="Button" parent="ButtonColumn"]
+[node name="PlayButton" type="Button" parent="ButtonColumn"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "New Game"
+text = "Play"
 size_flags_horizontal = 3
 
-[node name="ContinueButton" type="Button" parent="ButtonColumn"]
+[node name="SettingsButton" type="Button" parent="ButtonColumn"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Continue"
+text = "Settings"
 size_flags_horizontal = 3
 
-[node name="ScoresButton" type="Button" parent="ButtonColumn"]
+[node name="UnlockButton" type="Button" parent="ButtonColumn"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Scores"
+text = "Unlock Full Game"
 size_flags_horizontal = 3

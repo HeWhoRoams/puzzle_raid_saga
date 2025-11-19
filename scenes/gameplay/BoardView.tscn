@@ -13,10 +13,12 @@ mouse_filter = 0
 script = ExtResource("1_x5i6l")
 tile_scene = ExtResource("2_t0g8f")
 
-[node name="TilesLayer" type="Control" parent="."]
+[node name="TileGrid" type="GridContainer" parent="."]
 unique_name_in_owner = true
-anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+columns = 6
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4

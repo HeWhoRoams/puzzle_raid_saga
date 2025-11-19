@@ -23,6 +23,7 @@ SaveService="*res://autoload/SaveService.gd"
 BoardService="*res://autoload/BoardService.gd"
 TurnResolver="*res://autoload/TurnResolver.gd"
 AudioBus="*res://autoload/AudioBus.gd"
+SceneManager="*res://autoload/SceneManager.tscn"
 
 [input]
 

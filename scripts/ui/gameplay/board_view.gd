@@ -2,23 +2,45 @@ extends Control
 
 signal path_committed(path: Array[Vector2i])
 
+@export var board_width := 6: set = _set_board_width
+@export var board_height := 6
 @export var tile_scene: PackedScene
 
-@onready var tiles_layer: Control = %TilesLayer
+@onready var tile_grid: GridContainer = %TileGrid
 
 var _board: Array = []
 var _tile_nodes: Dictionary = {}
-var _current_path: Array[Vector2i] = []
-var _dragging := false
-var _tile_size := 0.0
-var _grid_origin := Vector2.ZERO
+var _is_dragging := false
+var _current_type := ""
+var _current_chain_tiles: Array[Control] = []
+var _current_chain_cells: Array[Vector2i] = []
 var min_path_length := 3
+
+
+func _ready() -> void:
+	set_process_unhandled_input(true)
+	tile_grid.columns = board_width
+	tile_grid.add_theme_constant_override("h_separation", 4)
+	tile_grid.add_theme_constant_override("v_separation", 4)
+
+
+func _set_board_width(value: int) -> void:
+	board_width = value
+	if tile_grid:
+		tile_grid.columns = value
+		tile_grid.queue_redraw()
 
 
 func set_board(board: Array) -> void:
 	_board = board
 	_build_tiles()
-	_layout_tiles()
+	_clear_chain()
+
+
+func generate_new_board(board: Array) -> void:
+	_board = board
+	_build_tiles()
+	_clear_chain()
 
 
 func set_min_path_length(value: int) -> void:
@@ -26,13 +48,11 @@ func set_min_path_length(value: int) -> void:
 
 
 func reset_selection() -> void:
-	_current_path.clear()
-	_dragging = false
-	_update_highlights()
+	_clear_chain()
 
 
 func _build_tiles() -> void:
-	for child in tiles_layer.get_children():
+	for child in tile_grid.get_children():
 		child.queue_free()
 	_tile_nodes.clear()
 
@@ -43,161 +63,107 @@ func _build_tiles() -> void:
 			if tile_data == null:
 				continue
 			var tile_view: Control = tile_scene.instantiate()
-			tiles_layer.add_child(tile_view)
+			tile_grid.add_child(tile_view)
 			if tile_view.has_method("configure"):
 				tile_view.configure(tile_data, Vector2i(col_idx, row_idx))
+			if tile_view.has_signal("tile_pressed"):
+				tile_view.tile_pressed.connect(_on_tile_pressed)
+			if tile_view.has_signal("tile_dragged"):
+				tile_view.tile_dragged.connect(_on_tile_dragged)
 			_tile_nodes[Vector2i(col_idx, row_idx)] = tile_view
 
 
-func _notification(what: int) -> void:
-	if what == NOTIFICATION_RESIZED:
-		_layout_tiles()
-
-
-func _layout_tiles() -> void:
-	if _board.is_empty():
+func _on_tile_pressed(tile: Control) -> void:
+	if tile == null:
 		return
-	var control_size: Vector2 = size
-	var usable_size: float = min(control_size.x, control_size.y)
-	if is_zero_approx(usable_size):
+	_start_chain(tile)
+
+
+func _on_tile_dragged(tile: Control) -> void:
+	if not _is_dragging or tile == null:
 		return
-	var board_size: int = _board.size()
-	_tile_size = usable_size / board_size
-	var offset: Vector2 = (control_size - Vector2(usable_size, usable_size)) * 0.5
-	_grid_origin = offset
-
-	for pos in _tile_nodes.keys():
-		var tile_view: Control = _tile_nodes[pos]
-		var pixel_pos: Vector2 = offset + Vector2(pos.x, pos.y) * _tile_size
-		tile_view.position = pixel_pos
-		tile_view.size = Vector2(_tile_size, _tile_size)
+	_update_chain(tile)
 
 
-func _gui_input(event: InputEvent) -> void:
-	if _board.is_empty():
+func _start_chain(tile: Control) -> void:
+	_clear_chain()
+	var tile_type := str(tile.get("tile_type", ""))
+	if tile_type.is_empty():
+		return
+	_is_dragging = true
+	_current_type = tile_type
+	_current_chain_tiles.append(tile)
+	_highlight_tile(tile)
+	var pos := Vector2i(int(tile.get("grid_x", 0)), int(tile.get("grid_y", 0)))
+	_current_chain_cells.append(pos)
+
+
+func _update_chain(tile: Control) -> void:
+	if not _is_dragging:
+		return
+	var tile_type := str(tile.get("tile_type", ""))
+	if tile_type != _current_type:
 		return
 
-	var position: Vector2
-	var handled := false
+	if _current_chain_tiles.size() > 1:
+		var last_tile: Control = _current_chain_tiles.back()
+		var prev_tile: Control = _current_chain_tiles[_current_chain_tiles.size() - 2]
+		if tile == prev_tile:
+			# backtrack
+			_unhighlight_tile(last_tile)
+			_current_chain_tiles.pop_back()
+			_current_chain_cells.pop_back()
+			return
 
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		position = event.position
-		var cell := _point_to_cell(position)
-		if event.pressed:
-			_start_path(cell)
-		else:
-			_finish_path()
-		handled = true
-	elif event is InputEventMouseMotion and _dragging:
-		position = event.position
-		var cell := _point_to_cell(position)
-		_extend_path(cell)
-		handled = true
-	elif event is InputEventScreenTouch:
-		position = _screen_point_to_local(event.position)
-		var cell := _point_to_cell(position)
-		if event.pressed:
-			_start_path(cell)
-		else:
-			_finish_path()
-		handled = true
-	elif event is InputEventScreenDrag and _dragging:
-		position = _screen_point_to_local(event.position)
-		var cell := _point_to_cell(position)
-		_extend_path(cell)
-		handled = true
-
-	if handled:
-		accept_event()
-
-
-func _point_to_cell(point: Vector2) -> Vector2i:
-	if _tile_size <= 0:
-		return Vector2i(-1, -1)
-	var local := point - _grid_origin
-	var col := int(floor(local.x / _tile_size))
-	var row := int(floor(local.y / _tile_size))
-	return Vector2i(col, row)
-
-
-func _is_cell_valid(cell: Vector2i) -> bool:
-	if cell.x < 0 or cell.y < 0:
-		return false
-	if cell.y >= _board.size():
-		return false
-	var row: Array = _board[cell.y]
-	if cell.x >= row.size():
-		return false
-	return row[cell.x] != null
-
-
-func _start_path(cell: Vector2i) -> void:
-	if not _is_cell_valid(cell):
+	if tile in _current_chain_tiles:
 		return
-	_current_path = [cell]
-	_dragging = true
-	_update_highlights()
 
-
-func _extend_path(cell: Vector2i) -> void:
-	if not _dragging:
+	var last := _current_chain_tiles.back()
+	if not _tiles_are_adjacent(last, tile):
 		return
-	if not _is_cell_valid(cell):
+
+	_current_chain_tiles.append(tile)
+	var pos := Vector2i(int(tile.get("grid_x", 0)), int(tile.get("grid_y", 0)))
+	_current_chain_cells.append(pos)
+	_highlight_tile(tile)
+
+
+func _tiles_are_adjacent(a: Control, b: Control) -> bool:
+	var diff_x := abs(int(a.get("grid_x", 0)) - int(b.get("grid_x", 0)))
+	var diff_y := abs(int(a.get("grid_y", 0)) - int(b.get("grid_y", 0)))
+	return diff_x + diff_y == 1
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+		_end_drag()
+	elif event is InputEventScreenTouch and not event.pressed:
+		_end_drag()
+
+
+func _end_drag() -> void:
+	if not _is_dragging:
 		return
-	if _current_path.is_empty():
-		return
-	var last: Vector2i = _current_path.back()
-	if cell == last:
-		return
-	if _current_path.size() > 1 and cell == _current_path[_current_path.size() - 2]:
-		_current_path.pop_back()
-		_update_highlights()
-		return
-	if _current_path.has(cell):
-		return
-	if not _is_adjacent(last, cell):
-		return
-	if not _is_tile_compatible(cell):
-		return
-	_current_path.append(cell)
-	_update_highlights()
+	_is_dragging = false
+	if _current_chain_cells.size() >= min_path_length:
+		path_committed.emit(_current_chain_cells.duplicate())
+	_clear_chain()
 
 
-func _finish_path() -> void:
-	if not _dragging:
-		return
-	_dragging = false
-	if _current_path.size() >= min_path_length:
-		path_committed.emit(_current_path.duplicate())
-	_current_path.clear()
-	_update_highlights()
+func _highlight_tile(tile: Control) -> void:
+	if tile.has_method("highlight"):
+		tile.highlight()
 
 
-func _is_adjacent(a: Vector2i, b: Vector2i) -> bool:
-	var diff := a - b
-	return abs(diff.x) <= 1 and abs(diff.y) <= 1 and (diff.x != 0 or diff.y != 0)
+func _unhighlight_tile(tile: Control) -> void:
+	if tile.has_method("unhighlight"):
+		tile.unhighlight()
 
 
-func _is_tile_compatible(cell: Vector2i) -> bool:
-	if _current_path.is_empty():
-		return true
-	var start_tile: Dictionary = _board[_current_path[0].y][_current_path[0].x]
-	var base_type := str(start_tile.get("type"))
-	var current_tile: Dictionary = _board[cell.y][cell.x]
-	var tile_type := str(current_tile.get("type"))
-	var attack_path := base_type == "SWORD" or base_type == "SKULL"
-	if attack_path:
-		return tile_type == "SWORD" or tile_type == "SKULL"
-	return tile_type == base_type
-
-
-func _update_highlights() -> void:
-	for pos in _tile_nodes.keys():
-		var tile_view: Control = _tile_nodes[pos]
-		if tile_view.has_method("set_selected"):
-			tile_view.set_selected(_current_path.has(pos))
-
-
-func _screen_point_to_local(point: Vector2) -> Vector2:
-	var inv := get_global_transform_with_canvas().affine_inverse()
-	return inv * point
+func _clear_chain() -> void:
+	for tile in _current_chain_tiles:
+		_unhighlight_tile(tile)
+	_current_chain_tiles.clear()
+	_current_chain_cells.clear()
+	_current_type = ""
+	_is_dragging = false

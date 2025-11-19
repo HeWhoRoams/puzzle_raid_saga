@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "patternProperties": {
+    ".*": {
+      "type": "object",
+      "required": ["id", "name", "description", "base_hp", "base_atk", "base_armor", "abilities", "starting_relics", "unlock_cost"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the class"
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name of the class"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the class"
+        },
+        "base_hp": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Base health points"
+        },
+        "base_atk": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Base attack value"
+        },
+        "base_armor": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Base armor value"
+        },
+        "abilities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of ability IDs"
+        },
+        "starting_relics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of starting relic IDs"
+        },
+        "unlock_cost": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Cost to unlock the class"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

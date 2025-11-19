@@ -1,0 +1,30 @@
+{
+	"attack": {
+		"label": "Attack",
+		"description": "Deals base attack damage.",
+		"effects": [
+			{ "type": "deal_damage", "amount": "enemy_attack" }
+		]
+	},
+	"armorbuff": {
+		"label": "Armor Up",
+		"description": "The enemy gains +2 armor.",
+		"effects": [
+			{ "type": "gain_armor", "amount": 2 }
+		]
+	},
+	"poison_player": {
+		"label": "Poison Strike",
+		"description": "Inflicts 2 poison for 3 turns.",
+		"effects": [
+			{ "type": "apply_status", "target": "player", "status": "poison", "amount": 2, "duration": 3 }
+		]
+	},
+	"heal_self": {
+		"label": "Regenerate",
+		"description": "Enemy heals for 8 HP.",
+		"effects": [
+			{ "type": "heal_enemy", "amount": 8 }
+		]
+	}
+}

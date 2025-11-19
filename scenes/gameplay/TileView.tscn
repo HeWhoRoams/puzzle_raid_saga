@@ -1,52 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://tile_view"]
+[gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://scripts/ui/gameplay/tile_view.gd" id="1_cj8b0"]
+[ext_resource type="Script" path="res://scripts/ui/gameplay/tile_view.gd" id="1_58s02"]
 
-[node name="TileView" type="Control"]
-custom_minimum_size = Vector2(64, 64)
+[node name="TileView" type="Panel"]
+custom_minimum_size = Vector2(80, 80)
 size_flags_horizontal = 3
 size_flags_vertical = 3
-mouse_filter = 1
-script = ExtResource("1_cj8b0")
+script = ExtResource("1_58s02")
 
-[node name="Background" type="ColorRect" parent="."]
-anchors_preset = 15
+[node name="Label" type="Label" parent="TileView"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.160784, 0.164706, 0.2, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-[node name="TypeLabel" type="Label" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 0.6
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 18
 horizontal_alignment = 1
 vertical_alignment = 1
-text = "?"
-
-[node name="InfoLabel" type="Label" parent="."]
-anchors_preset = 13
-anchor_left = 0.05
-anchor_right = 0.95
-anchor_top = 0.6
-anchor_bottom = 0.95
-grow_horizontal = 2
-grow_vertical = 2
-horizontal_alignment = 1
-vertical_alignment = 1
-text = ""
-theme_override_font_sizes/font_size = 12
-
-[node name="IntentIcon" type="TextureRect" parent="."]
-unique_name_in_owner = true
-anchor_right = 0.3
-anchor_bottom = 0.3
-stretch_mode = 4
+text = "TILE"

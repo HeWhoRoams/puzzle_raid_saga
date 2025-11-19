@@ -1,0 +1,37 @@
+{
+	"bloodstone": {
+		"label": "Bloodstone",
+		"description": "Healing gives +2 extra HP.",
+		"effects": [
+			{ "type": "modify_heal", "amount": 2, "trigger": "on_heal" }
+		]
+	},
+	"iron_core": {
+		"label": "Iron Core",
+		"description": "+2 Armor at the start of every turn.",
+		"effects": [
+			{ "type": "start_turn_gain_armor", "amount": 2, "trigger": "start_turn" }
+		]
+	},
+	"lucky_coin": {
+		"label": "Lucky Coin",
+		"description": "Gain +1 extra gold for each Coin tile.",
+		"effects": [
+			{ "type": "modify_coin_gain", "amount": 1, "trigger": "on_coin_gain" }
+		]
+	},
+	"battle_rage": {
+		"label": "Battle Rage",
+		"description": "Deal +1 bonus damage for each sword tile.",
+		"effects": [
+			{ "type": "modify_damage", "amount": 1, "trigger": "on_damage" }
+		]
+	},
+	"holy_focus": {
+		"label": "Holy Focus",
+		"description": "Abilities have -1 cooldown (minimum 1).",
+		"effects": [
+			{ "type": "cooldown_modifier", "amount": -1, "min": 1, "trigger": "on_cooldown" }
+		]
+	}
+}

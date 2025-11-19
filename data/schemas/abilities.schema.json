@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "patternProperties": {
+    ".*": {
+      "type": "object",
+      "required": ["label", "cooldown", "effects"],
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "Display name of the ability"
+        },
+        "cooldown": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Cooldown turns for the ability"
+        },
+        "effects": {
+          "type": "array",
+          "description": "List of effects the ability applies",
+          "items": {
+            "type": "object",
+            "required": ["type"],
+            "oneOf": [
+              {
+                "properties": {
+                  "type": {
+                    "const": "damage_enemy"
+                  },
+                  "amount": {
+                    "type": "number",
+                    "description": "Damage amount to deal to enemy"
+                  }
+                },
+                "required": ["amount"],
+                "additionalProperties": false
+              },
+              {
+                "properties": {
+                  "type": {
+                    "const": "heal_player"
+                  },
+                  "amount": {
+                    "type": "number",
+                    "description": "Healing amount for player"
+                  }
+                },
+                "required": ["amount"],
+                "additionalProperties": false
+              },
+              {
+                "properties": {
+                  "type": {
+                    "const": "gain_armor"
+                  },
+                  "amount": {
+                    "type": "number",
+                    "description": "Armor amount to gain"
+                  }
+                },
+                "required": ["amount"],
+                "additionalProperties": false
+              },
+              {
+                "properties": {
+                  "type": {
+                    "const": "replace_tile_type"
+                  },
+                  "match": {
+                    "type": "string",
+                    "description": "Tile type to match for replacement"
+                  },
+                  "replace_to": {
+                    "type": "string",
+                    "description": "Tile type to replace with"
+                  }
+                },
+                "required": ["match", "replace_to"],
+                "additionalProperties": false
+              }
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

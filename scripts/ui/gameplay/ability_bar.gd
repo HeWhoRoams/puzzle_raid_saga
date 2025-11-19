@@ -2,63 +2,107 @@ extends HBoxContainer
 
 signal ability_pressed(ability_id: StringName)
 
-var _abilities: Array = []
+var _cooldowns := {}
+var _buttons: Array[Button] = []
+var _ability_to_button: Dictionary = {}
+var _ability_labels: Dictionary = {}
+var _slot_abilities: Array[String] = []
+var _active_abilities: Array[String] = []
 
 
-func set_abilities(abilities: Array) -> void:
-	_abilities = abilities
-	_refresh()
+func _ready() -> void:
+	_buttons = [
+		%AbilityButton1,
+		%AbilityButton2,
+		%AbilityButton3,
+		%AbilityButton4,
+	]
+	_slot_abilities.resize(_buttons.size())
+	for i in range(_buttons.size()):
+		_slot_abilities[i] = ""
+		var button := _buttons[i]
+		button.visible = false
+		button.text = ""
+		var slot_index := i
+		button.pressed.connect(func(): _on_button_pressed(slot_index))
 
 
-func _refresh() -> void:
-	for child in get_children():
-		child.queue_free()
-
-	for ability in _abilities:
-		var card := VBoxContainer.new()
-		card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		card.alignment = BoxContainer.ALIGNMENT_CENTER
-		card.theme_override_constants.separation = 4
-
-		var def: AbilityDefinitionResource = ability.get("definition")
-		var icon_texture := _load_icon(def.icon_path)
-		if icon_texture:
-			var icon := TextureRect.new()
-			icon.texture = icon_texture
-			icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-			icon.custom_minimum_size = Vector2(48, 48)
-			card.add_child(icon)
-
-		var label := Label.new()
-		label.text = tr(def.display_name)
-		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		label.autowrap_mode = TextServer.AUTOWRAP_WORD
-		card.add_child(label)
-
-		var button := Button.new()
-		var cooldown: int = ability.get("current_cooldown", 0)
-		var button_text := "Cooling (%d)" % cooldown if cooldown > 0 else "Activate"
-		button.text = button_text
-		button.disabled = cooldown > 0
-		button.tooltip_text = tr(def.description)
-		button.shortcut = _build_shortcut(card.get_child_count())
-		var ability_id: StringName = ability.get("id", StringName())
-		button.pressed.connect(func(): ability_pressed.emit(ability_id))
-		card.add_child(button)
-
-		add_child(card)
+func _trigger_ability(id: String) -> void:
+	if _cooldowns.get(id, 0) > 0:
+		print("%s is on cooldown (%d)" % [id, _cooldowns[id]])
+		return
+	ability_pressed.emit(StringName(id))
 
 
-func _load_icon(path: String) -> Texture2D:
-	if path.is_empty():
-		return null
-	var res := ResourceLoader.load(path)
-	return res if res is Texture2D else null
+func set_cooldown(id: String, turns: int) -> void:
+	_cooldowns[id] = max(turns, 0)
+	_update_button(id)
 
 
-func _build_shortcut(index: int) -> Shortcut:
-	var shortcut := Shortcut.new()
-	var ev := InputEventKey.new()
-	ev.keycode = KEY_1 + index
-	shortcut.events = [ev]
-	return shortcut
+func reduce_cooldowns() -> void:
+	for id in _active_abilities:
+		if _cooldowns.get(id, 0) > 0:
+			_cooldowns[id] = max(0, _cooldowns[id] - 1)
+			_update_button(id)
+
+
+func reset_cooldowns() -> void:
+	for id in _cooldowns.keys():
+		_cooldowns[id] = 0
+	_update_all_buttons()
+
+
+func set_active_abilities(list: Array[String]) -> void:
+	_active_abilities = list.duplicate(true)
+	_ability_to_button.clear()
+	_ability_labels.clear()
+	for button in _buttons:
+		button.visible = false
+	for i in range(_slot_abilities.size()):
+		_slot_abilities[i] = ""
+	for i in range(min(_active_abilities.size(), _buttons.size())):
+		var ability_id := _active_abilities[i]
+		var def := GameState.get_ability_definition(ability_id)
+		var button: Button = _buttons[i]
+		var label: String
+		if def == null:
+			push_warning("AbilityBar: Missing ability definition for '%s'" % ability_id)
+			label = ability_id
+		else:
+			label = def.get("label", ability_id)
+		button.visible = true
+		button.text = label
+		_slot_abilities[i] = ability_id
+		_ability_to_button[ability_id] = button
+		_ability_labels[ability_id] = label
+		if not _cooldowns.has(ability_id):
+			_cooldowns[ability_id] = 0
+	_update_all_buttons()
+
+
+func _update_button(id: String) -> void:
+	var button: Button = _ability_to_button.get(id)
+	if button == null:
+		return
+	var turns := _cooldowns.get(id, 0)
+	var label := _ability_labels.get(id, id)
+	if turns <= 0:
+		button.text = label
+		button.disabled = false
+	else:
+		button.text = "%s (%d)" % [label, turns]
+		button.disabled = true
+
+
+func _update_all_buttons() -> void:
+	for ability_id in _active_abilities:
+		_update_button(ability_id)
+
+
+func _on_button_pressed(slot_index: int) -> void:
+	if slot_index < 0 or slot_index >= _slot_abilities.size():
+		return
+	var ability_id := _slot_abilities[slot_index]
+	if ability_id.is_empty():
+		return
+	_trigger_ability(ability_id)

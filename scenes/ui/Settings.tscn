@@ -81,3 +81,8 @@ button_pressed = true
 unique_name_in_owner = true
 text = "Close"
 size_flags_horizontal = 1
+
+[node name="UnlockStoreButton" type="Button" parent="Layout"]
+unique_name_in_owner = true
+text = "Unlock Full Game"
+size_flags_horizontal = 1

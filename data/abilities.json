@@ -1,0 +1,30 @@
+{
+	"smite": {
+		"label": "Smite",
+		"cooldown": 3,
+		"effects": [
+			{ "type": "damage_enemy", "amount": 10 }
+		]
+	},
+	"heal": {
+		"label": "Heal",
+		"cooldown": 4,
+		"effects": [
+			{ "type": "heal_player", "amount": 15 }
+		]
+	},
+	"armor_up": {
+		"label": "Armor Up",
+		"cooldown": 4,
+		"effects": [
+			{ "type": "gain_armor", "amount": 5 }
+		]
+	},
+	"cleanse": {
+		"label": "Cleanse",
+		"cooldown": 6,
+		"effects": [
+			{ "type": "replace_tile_type", "match": "MASK", "replace_to": "NORMAL" }
+		]
+	}
+}
